@@ -1,0 +1,4616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>命中注定 | 你的最佳宠物伙伴</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =====================
+       精致设计系统
+       ===================== */
+    :root {
+      /* 主色调 - 温暖的珊瑚橙 */
+      --primary: #FF6B5B;
+      --primary-light: #FF8A7A;
+      --primary-dark: #E85A4A;
+      
+      /* 辅助色 - 奶茶粉 */
+      --secondary: #FFB4A2;
+      --secondary-light: #FFD4C8;
+      
+      /* 中性色 - 温暖的米白 */
+      --bg: #FFFBF9;
+      --bg-warm: #FFF5F2;
+      --bg-card: #FFFFFF;
+      
+      /* 文字色 */
+      --text: #2D2826;
+      --text-secondary: #6B6560;
+      --text-tertiary: #A8A09A;
+      
+      /* 功能色 */
+      --success: #5BC4A0;
+      --warning: #FFB84D;
+      
+      /* 阴影 - 更精致的阴影 */
+      --shadow-sm: 0 2px 8px rgba(45, 40, 38, 0.06);
+      --shadow-md: 0 4px 16px rgba(45, 40, 38, 0.08);
+      --shadow-lg: 0 8px 32px rgba(45, 40, 38, 0.12);
+      --shadow-glow: 0 0 40px rgba(255, 107, 91, 0.25);
+      
+      /* 圆角 */
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-full: 999px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--bg);
+      position: relative;
+    }
+
+    /* =====================
+       封面页 - 精致优雅
+       ===================== */
+    .page-cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 32px;
+      text-align: center;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 装饰性渐变背景 */
+    .page-cover::before {
+      content: '';
+      position: absolute;
+      top: -30%; left: -30%;
+      width: 160%; height: 160%;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(255, 180, 162, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(255, 107, 91, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 212, 200, 0.2) 0%, transparent 70%);
+      animation: ambientMove 12s ease-in-out infinite;
+    }
+
+    @keyframes ambientMove {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, -2%) rotate(1deg); }
+      66% { transform: translate(-1%, 1%) rotate(-1deg); }
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cover-content.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Logo标识 */
+    .cover-logo {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 32px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 107, 91, 0.1);
+    }
+
+    .cover-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: linear-gradient(135deg, var(--success) 0%, #7DD9B3 100%);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+    }
+
+    .cover-hero {
+      font-size: 88px;
+      margin-bottom: 24px;
+      display: block;
+      filter: drop-shadow(0 8px 24px rgba(255, 107, 91, 0.3));
+    }
+
+    .cover-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-title-accent {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cover-subtitle {
+      font-size: 17px;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+      line-height: 1.6;
+      max-width: 280px;
+    }
+
+    .start-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      border: none;
+      padding: 18px 56px;
+      border-radius: var(--radius-full);
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255, 107, 91, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .start-btn:hover::before {
+      left: 100%;
+    }
+
+    .start-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 4px 16px rgba(255, 107, 91, 0.3);
+    }
+
+    /* =====================
+       问卷页
+       ===================== */
+    .page-quiz {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      background: var(--bg);
+    }
+
+    .quiz-header {
+      padding: 20px 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quiz-back {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-card);
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+      opacity: 0;
+    }
+
+    .quiz-back.visible { opacity: 1; }
+    .quiz-back:active { transform: scale(0.95); }
+
+    .quiz-progress {
+      flex: 1;
+      height: 6px;
+      background: var(--bg-warm);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--radius-full);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .quiz-progress-text {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      min-width: 48px;
+      text-align: right;
+    }
+
+    .quiz-content {
+      flex: 1;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .question-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-md);
+      animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .question-tag {
+      background: linear-gradient(135deg, var(--secondary-light) 0%, var(--secondary) 100%);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary-dark);
+    }
+
+    .question-number {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+    }
+
+    .question-text {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 24px;
+      line-height: 1.4;
+      letter-spacing: -0.3px;
+    }
+
+    /* 选项列表 */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--bg);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .option:hover {
+      background: var(--bg-warm);
+      transform: translateX(4px);
+    }
+
+    .option.selected {
+      background: linear-gradient(135deg, rgba(255, 107, 91, 0.08) 0%, rgba(255, 180, 162, 0.15) 100%);
+      border-color: var(--primary);
+    }
+
+    .option-icon {
+      font-size: 24px;
+      width: 36px;
+      text-align: center;
+    }
+
+    .option-text {
+      flex: 1;
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .option-check {
+      width: 24px;
+      height: 24px;
+      background: var(--bg-warm);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: transparent;
+      transition: all 0.25s;
+    }
+
+    .option.selected .option-check {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+    }
+
+    /* 补充说明 */
+    .note-section {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--bg-warm);
+    }
+
+    .note-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .note-icon {
+      font-size: 16px;
+    }
+
+    .note-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .note-hint {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .note-input {
+      width: 100%;
+      min-height: 80px;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text);
+      resize: none;
+      transition: all 0.25s;
+    }
+
+    .note-input:focus {
+      outline: none;
+      background: var(--bg-card);
+      border-color: var(--primary);
+    }
+
+    .note-input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .note-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .note-char-count {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* 底部按钮 */
+    .quiz-footer {
+      padding: 16px 20px 32px;
+      background: linear-gradient(to top, var(--bg) 80%, transparent);
+    }
+
+    .next-btn {
+      width: 100%;
+      padding: 18px;
+      background: var(--bg-warm);
+      color: var(--text-tertiary);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .next-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      box-shadow: 0 8px 24px rgba(255, 107, 91, 0.35);
+    }
+
+    .next-btn.active:active {
+      transform: scale(0.98);
+    }
+
+    /* =====================
+       加载页
+       ===================== */
+    .page-loading {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .loading-icon-wrap {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-glow);
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .loading-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .loading-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .loading-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .loading-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--secondary);
+      border-radius: 50%;
+      animation: dotBounce 1.4s ease-in-out infinite;
+    }
+
+    .loading-dot:nth-child(1) { animation-delay: 0s; }
+    .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes dotBounce {
+      0%, 80%, 100% { transform: scale(1); opacity: 0.5; }
+      40% { transform: scale(1.3); opacity: 1; }
+    }
+
+    /* =====================
+       结果页
+       ===================== */
+    .page-result {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      padding-bottom: 32px;
+    }
+
+    .result-hero {
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary-light) 100%);
+      padding: 48px 24px 80px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 光晕效果 */
+    .result-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 40%),
+                  radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 30%);
+      animation: shimmer 4s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .result-pet {
+      position: relative;
+    }
+
+    .result-emoji {
+      font-size: 96px;
+      display: block;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.15));
+    }
+
+    .result-name {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .result-score {
+      font-size: 18px;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .result-score span {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    /* 结果内容卡片 */
+    .result-content {
+      margin: -48px 16px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .result-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 16px;
+    }
+
+    .result-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .result-card-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* TOP3 */
+    .top3-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .top3-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: var(--radius-md);
+      transition: all 0.25s;
+    }
+
+    .top3-item:hover {
+      transform: translateX(4px);
+    }
+
+    .top3-rank {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--bg-warm) 0%, var(--secondary-light) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .top3-item:first-child .top3-rank {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      color: white;
+    }
+
+    .top3-item:nth-child(2) .top3-rank {
+      background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%);
+      color: white;
+    }
+
+    .top3-item:nth-child(3) .top3-rank {
+      background: linear-gradient(135deg, #CD7F32 0%, #B8860B 100%);
+      color: white;
+    }
+
+    .top3-emoji {
+      font-size: 28px;
+    }
+
+    .top3-info {
+      flex: 1;
+    }
+
+    .top3-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .top3-reason {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .top3-score {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* 操作按钮 */
+    .result-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .action-btn.secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: none;
+    }
+
+    .action-btn.secondary:active {
+      background: var(--bg-warm);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      border: none;
+      box-shadow: var(--shadow-md);
+    }
+
+    .action-btn.primary:active {
+      transform: scale(0.98);
+    }
+
+    /* 付费区 */
+    .pay-section {
+      margin-top: 8px;
+    }
+
+    .pay-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .pay-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pay-option {
+      background: var(--bg-card);
+      border: 2px solid var(--bg-warm);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .pay-option:hover {
+      border-color: var(--secondary);
+    }
+
+    .pay-option.selected {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, rgba(255, 107, 91, 0.05) 0%, rgba(255, 180, 162, 0.1) 100%);
+    }
+
+    .pay-option-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .pay-option-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .pay-option-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .pay-option-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .pay-btn {
+      width: 100%;
+      margin-top: 16px;
+      padding: 18px;
+      background: var(--bg-warm);
+      color: var(--text-tertiary);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .pay-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      box-shadow: 0 8px 24px rgba(255, 107, 91, 0.35);
+    }
+
+    .pay-btn.active:active {
+      transform: scale(0.98);
+    }
+    
+    /* 购买引导 */
+    .pay-guide {
+      background: linear-gradient(135deg, #FFF9F5 0%, #FFF5F0 100%);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-top: 16px;
+    }
+    
+    .pay-guide-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    
+    .pay-guide-steps {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    
+    .pay-guide-steps .step {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-align: center;
+      flex: 1;
+    }
+    
+    /* 解锁码按钮 */
+    .unlock-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 14px;
+      background: transparent;
+      color: var(--primary);
+      border: 1.5px dashed var(--primary);
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .unlock-btn:active {
+      background: rgba(255, 127, 107, 0.1);
+    }
+    
+    /* 解锁码弹窗 */
+    .unlock-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1000;
+    }
+    
+    .unlock-modal.show { display: flex; }
+    
+    .unlock-modal-content {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+    }
+    
+    .unlock-modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    
+    .unlock-modal-tip {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    
+    .unlock-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+    
+    .unlock-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .unlock-error {
+      color: #E53935;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    
+    .unlock-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .unlock-btn-cancel {
+      flex: 1;
+      padding: 14px;
+      background: var(--bg-warm);
+      color: var(--text-secondary);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    .unlock-btn-confirm {
+      flex: 2;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    /* 解锁内容样式 */
+    .unlock-content {
+      border: 2px solid var(--primary);
+      animation: slideUp 0.4s ease-out;
+    }
+    
+    .unlock-content.full {
+      border-color: #FFD700;
+      background: linear-gradient(135deg, #FFFEF5 0%, #FFF9E6 100%);
+    }
+    
+    .unlock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(255, 107, 91, 0.3);
+    }
+    
+    .unlock-badge.gold {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+    }
+    
+    .content-section {
+      background: rgba(255,255,255,0.9);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .content-section:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    
+    .content-section h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .content-section h4 .section-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--secondary-light) 0%, var(--secondary) 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    
+    .content-section p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    /* 列表项样式 */
+    .content-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .content-section ul li {
+      font-size: 14px;
+      color: var(--text);
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(0,0,0,0.08);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .content-section ul li:last-child {
+      border-bottom: none;
+    }
+    
+    .content-section ul li .item-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--bg-warm);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      margin-top: 2px;
+    }
+    
+    .content-section ul li.warning-item .item-icon {
+      background: #FFF3E0;
+    }
+    
+    .content-section ul li.tip-item .item-icon {
+      background: #E8F5E9;
+    }
+    
+    .photo-placeholder,
+    .certificate-placeholder {
+      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      border-radius: var(--radius-md);
+      padding: 40px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(45, 40, 38, 0.9);
+      color: white;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      font-size: 15px;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* 分享弹窗 */
+    .share-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1000;
+    }
+
+    .share-modal.show { display: flex; }
+
+    .share-modal-content {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+    }
+
+    .share-modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .share-modal-text {
+      width: 100%;
+      min-height: 100px;
+      padding: 14px;
+      background: var(--bg);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      resize: none;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .share-modal-tip {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+    }
+
+    .share-modal-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    /* 订单号弹窗 */
+    .order-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1000;
+    }
+    
+    .order-modal.show { display: flex; }
+    
+    .order-modal-content {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 32px 24px;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+      animation: slideUp 0.3s ease-out;
+    }
+    
+    .order-modal-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .order-modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    
+    .order-modal-tip {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    
+    .order-id-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #FFF5F0 0%, #FFF0EB 100%);
+      border: 2px dashed var(--primary);
+      border-radius: 12px;
+      padding: 16px 24px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .order-id-box:active {
+      transform: scale(0.98);
+      background: #FFE8E4;
+    }
+    
+    .order-id {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 3px;
+      font-family: monospace;
+    }
+    
+    .copy-icon {
+      font-size: 20px;
+    }
+    
+    .order-modal-hint {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-bottom: 24px;
+    }
+    
+    .order-modal-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    
+    .order-modal-back {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .order-modal-back a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    
+    /* 验证弹窗 */
+    .verify-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1000;
+    }
+    
+    .verify-modal.show { display: flex; }
+    
+    .verify-modal-content {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 32px 24px;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+      animation: slideUp 0.3s ease-out;
+    }
+    
+    .verify-modal-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .verify-modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    
+    .verify-modal-tip {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    
+    .verify-input {
+      width: 100%;
+      padding: 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 18px;
+      text-align: center;
+      letter-spacing: 3px;
+      font-family: monospace;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    
+    .verify-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .verify-error {
+      color: #E53935;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+    
+    .verify-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    
+    .verify-cancel {
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    
+    /* 报告加载动画 */
+    .loading-report {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* 证书样式 */
+    .certificate-preview {
+      background: linear-gradient(135deg, #FFFEF5 0%, #FFF9E6 100%);
+      border: 2px solid #FFD700;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .cert-inner {
+      text-align: center;
+      position: relative;
+    }
+    
+    .cert-header {
+      font-size: 18px;
+      font-weight: 700;
+      color: #8B6914;
+      margin-bottom: 16px;
+    }
+    
+    .cert-body {
+      font-family: 'Georgia', serif;
+    }
+    
+    .cert-line1, .cert-line2 {
+      font-size: 13px;
+      color: #666;
+      margin: 8px 0;
+    }
+    
+    .cert-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 8px 0;
+    }
+    
+    .cert-pet {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 12px 0;
+    }
+    
+    .cert-date {
+      font-size: 12px;
+      color: #999;
+      margin-top: 16px;
+    }
+    
+    .cert-seal {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 32px;
+      opacity: 0.3;
+    }
+    
+    .share-cert-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      color: #5D4E37;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    
+    /* AI合照占位 */
+    .photo-card {
+      background: #f5f5f5;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .photo-placeholder {
+      padding: 40px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+    
+    .photo-generating {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .sparkle {
+      font-size: 32px;
+      animation: bounce 1s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .photo-fallback {
+      font-size: 80px;
+      padding: 40px;
+    }
+    
+    /* 报告样式 */
+    .report-pet-name {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed var(--border);
+    }
+    
+    .content-section.highlight {
+      background: linear-gradient(135deg, #FFF9F5 0%, #FFF5F0 100%);
+      border-left: 4px solid var(--primary);
+    }
+    
+    .content-section.highlight h4 {
+      color: var(--primary);
+    }
+    
+    /* 费用预算样式 */
+    .budget-section {
+      background: linear-gradient(135deg, #F0FFF4 0%, #E8F5E9 100%);
+    }
+    
+    .budget-section h4 {
+      color: #2E7D32;
+    }
+    
+    .budget-detail {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 8px;
+    }
+    
+    .budget-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 4px;
+    }
+    
+    .budget-content {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    
+    /* 警告样式 */
+    .warning-section {
+      background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+    }
+    
+    .warning-section h4 {
+      color: #E65100;
+    }
+    
+    .warning-list, .tips-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .warning-list li, .tips-list li {
+      font-size: 14px;
+      color: var(--text);
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(0,0,0,0.1);
+      line-height: 1.5;
+    }
+    
+    .warning-list li:last-child, .tips-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .warning-list li::before {
+      content: '⚠️ ';
+    }
+    
+    .tips-list li::before {
+      content: '✨ ';
+    }
+    
+    /* 时间线样式 */
+    .timeline-section {
+      background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+    }
+    
+    .timeline-section h4 {
+      color: #1565C0;
+    }
+    
+    /* 照片上传样式 */
+    .photo-upload-section {
+      text-align: center;
+    }
+    
+    .photo-tip {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .photo-upload-area {
+      border: 2px dashed var(--secondary);
+      border-radius: 16px;
+      padding: 32px 24px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: linear-gradient(135deg, #FFFBF9 0%, #FFF5F2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .photo-upload-area::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(255,107,91,0.05) 0%, rgba(255,180,162,0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .photo-upload-area:hover::before,
+    .photo-upload-area:active::before {
+      opacity: 1;
+    }
+    
+    .photo-upload-area:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 107, 91, 0.15);
+    }
+    
+    .upload-placeholder {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .upload-icon {
+      font-size: 56px;
+      margin-bottom: 12px;
+      display: inline-block;
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+    
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    .upload-placeholder p {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 12px 0 8px;
+    }
+    
+    .upload-placeholder span {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      display: block;
+    }
+    
+    .upload-format {
+      display: inline-block;
+      background: var(--bg-warm);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+    
+    .generate-photo-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      color: #5D4E37;
+      border: none;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .generate-photo-btn .btn-icon {
+      font-size: 20px;
+    }
+    
+    .generate-photo-btn:disabled {
+      background: linear-gradient(135deg, #E0E0E0 0%, #BDBDBD 100%);
+      color: #999;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    
+    .generate-photo-btn:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.45);
+    }
+    
+    .generate-photo-btn:not(:disabled):active {
+      transform: translateY(0) scale(0.98);
+    }
+    
+    .loading-spinner-small {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(93,78,55,0.3);
+      border-top-color: #5D4E37;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      vertical-align: middle;
+    }
+    
+    /* AI生成动画 */
+    .generating-wrapper {
+      background: linear-gradient(135deg, #FFF9F5 0%, #FFF5F0 100%);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .generating-text {
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    
+    .generating-progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .generating-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: dotBounce 1.4s ease-in-out infinite;
+    }
+    
+    .generating-dot:nth-child(2) { animation-delay: 0.15s; }
+    .generating-dot:nth-child(3) { animation-delay: 0.3s; }
+    
+    /* 证书样式增强 */
+    .cert-frame {
+      background: linear-gradient(135deg, #FFFEF7 0%, #FFF9E8 100%);
+      border: 4px solid #FFD700;
+      border-radius: 20px;
+      padding: 32px 24px;
+      position: relative;
+      box-shadow: 
+        0 8px 32px rgba(255, 215, 0, 0.25),
+        inset 0 0 60px rgba(255, 215, 0, 0.05);
+    }
+    
+    /* 证书装饰角 */
+    .cert-frame::before,
+    .cert-frame::after {
+      content: '✨';
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.6;
+    }
+    
+    .cert-frame::before {
+      top: 8px;
+      left: 12px;
+    }
+    
+    .cert-frame::after {
+      bottom: 8px;
+      right: 12px;
+    }
+    
+    .cert-header {
+      font-size: 26px;
+      font-weight: 700;
+      color: #8B6914;
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid #FFD700;
+      position: relative;
+    }
+    
+    .cert-header::after {
+      content: '🐾';
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      background: #FFF9E8;
+      padding: 0 12px;
+    }
+    
+    .cert-body {
+      text-align: center;
+      font-family: 'Georgia', serif;
+      padding-top: 20px;
+    }
+    
+    .cert-line1, .cert-line2 {
+      font-size: 13px;
+      color: #999;
+      margin: 10px 0;
+      letter-spacing: 1px;
+    }
+    
+    .cert-owner {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 16px 0;
+      font-family: 'PingFang SC', -apple-system, sans-serif;
+    }
+    
+    .cert-pet {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 20px 0;
+      text-shadow: 2px 2px 4px rgba(255, 107, 91, 0.15);
+    }
+    
+    .cert-date {
+      font-size: 15px;
+      color: #B8860B;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+    
+    .cert-footer {
+      text-align: center;
+      font-size: 13px;
+      color: #B8860B;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px dashed #FFD700;
+      letter-spacing: 2px;
+    }
+    
+    .share-cert-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      color: #5D4E37;
+      border: none;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .share-cert-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.45);
+    }
+    
+    .share-cert-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* =====================
+       ¥6.9 完整套装 - 升级样式
+       ===================== */
+
+    /* 套装标题区 */
+    .full-report-hero {
+      background: linear-gradient(135deg, #2D2826 0%, #3D3532 100%);
+      border-radius: 20px;
+      padding: 24px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .full-report-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at 30% 40%, rgba(255,215,0,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 60%, rgba(255,107,91,0.12) 0%, transparent 60%);
+    }
+    .full-hero-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      color: #2D2826;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .full-hero-emoji {
+      font-size: 64px;
+      display: block;
+      margin: 8px 0;
+      position: relative;
+      filter: drop-shadow(0 4px 12px rgba(255,215,0,0.4));
+    }
+    .full-hero-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #FFFFFF;
+      position: relative;
+    }
+    .full-hero-name span {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .full-hero-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 6px;
+      position: relative;
+    }
+
+    /* 宠物图鉴卡片 */
+    .pet-atlas-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,215,0,0.2);
+    }
+    .pet-atlas-card::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle at top right, rgba(255,215,0,0.1) 0%, transparent 70%);
+    }
+    .pet-atlas-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #FFD700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .pet-atlas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .atlas-stat {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 12px;
+      position: relative;
+    }
+    .atlas-stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+    .atlas-stat-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    .atlas-stat-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .atlas-stat-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #FFD700, #FFA500);
+      border-radius: 2px;
+    }
+    .atlas-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .atlas-tag {
+      background: rgba(255,215,0,0.15);
+      color: #FFD700;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,215,0,0.25);
+    }
+
+    /* 专属宣言 */
+    .declaration-card {
+      background: linear-gradient(135deg, #FFF9E6 0%, #FFFDF0 100%);
+      border: 2px solid #FFD700;
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 14px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .declaration-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px; left: 16px;
+      font-size: 80px;
+      color: rgba(255,215,0,0.2);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .declaration-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #B8860B;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+    .declaration-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text);
+      font-style: italic;
+      position: relative;
+    }
+    .declaration-sig {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #B8860B;
+      border-top: 1px dashed #FFD700;
+      padding-top: 12px;
+    }
+
+    /* 星座配对 */
+    .compatibility-zodiac {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 14px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .zodiac-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .zodiac-pair {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .zodiac-item {
+      text-align: center;
+    }
+    .zodiac-emoji {
+      font-size: 40px;
+      display: block;
+    }
+    .zodiac-name {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 6px;
+    }
+    .zodiac-heart {
+      font-size: 28px;
+      animation: heartBeat 1.2s ease-in-out infinite;
+    }
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .zodiac-score {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #FFD700, #FF9500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .zodiac-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      margin-top: 12px;
+    }
+
+    /* 里程碑时间轴 */
+    .milestone-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-md);
+    }
+    .milestone-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .milestone-list {
+      position: relative;
+      padding-left: 20px;
+    }
+    .milestone-list::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #FFD700, var(--primary), #5BC4A0);
+    }
+    .milestone-item {
+      position: relative;
+      padding: 12px 0 12px 20px;
+    }
+    .milestone-item::before {
+      content: '';
+      position: absolute;
+      left: -16px; top: 16px;
+      width: 10px; height: 10px;
+      background: #FFD700;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 0 2px #FFD700;
+    }
+    .milestone-time {
+      font-size: 11px;
+      font-weight: 700;
+      color: #B8860B;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .milestone-event {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* 精美证书 v2 */
+    .cert-v2 {
+      background: linear-gradient(160deg, #FFFEF7 0%, #FFF9E6 50%, #FFF5D6 100%);
+      border-radius: 20px;
+      padding: 4px;
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .cert-v2-border {
+      border-radius: 18px;
+      border: 2px solid #FFD700;
+      padding: 28px 24px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cert-v2-border::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+    /* 四角装饰 */
+    .cert-corner {
+      position: absolute;
+      width: 32px; height: 32px;
+      border-color: #FFD700;
+      border-style: solid;
+    }
+    .cert-corner-tl { top: 14px; left: 14px; border-width: 2px 0 0 2px; border-radius: 4px 0 0 0; }
+    .cert-corner-tr { top: 14px; right: 14px; border-width: 2px 2px 0 0; border-radius: 0 4px 0 0; }
+    .cert-corner-bl { bottom: 14px; left: 14px; border-width: 0 0 2px 2px; border-radius: 0 0 0 4px; }
+    .cert-corner-br { bottom: 14px; right: 14px; border-width: 0 2px 2px 0; border-radius: 0 0 4px 0; }
+    .cert-v2-watermark {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 80px;
+      opacity: 0.04;
+      pointer-events: none;
+      user-select: none;
+    }
+    .cert-v2-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cert-v2-logo {
+      font-size: 28px;
+      letter-spacing: 4px;
+    }
+    .cert-v2-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #B8860B;
+      letter-spacing: 4px;
+      margin-top: 6px;
+    }
+    .cert-v2-divider {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .cert-v2-divider::before,
+    .cert-v2-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #FFD700, transparent);
+    }
+    .cert-v2-divider span {
+      font-size: 14px;
+      color: #FFD700;
+    }
+    .cert-v2-body {
+      text-align: center;
+      font-family: 'Noto Sans SC', sans-serif;
+    }
+    .cert-v2-certify {
+      font-size: 12px;
+      color: #999;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .cert-v2-owner {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 4px 0 16px;
+    }
+    .cert-v2-adopted {
+      font-size: 12px;
+      color: #999;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .cert-v2-pet-emoji {
+      font-size: 52px;
+      display: block;
+      margin: 4px 0;
+      filter: drop-shadow(0 4px 8px rgba(255,165,0,0.3));
+    }
+    .cert-v2-pet-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 6px 0;
+    }
+    .cert-v2-tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0;
+    }
+    .cert-v2-tag {
+      background: rgba(255,215,0,0.15);
+      color: #8B6914;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,215,0,0.4);
+    }
+    .cert-v2-footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255,215,0,0.5);
+    }
+    .cert-v2-date-block {
+      text-align: left;
+    }
+    .cert-v2-date-label {
+      font-size: 10px;
+      color: #999;
+      letter-spacing: 1px;
+    }
+    .cert-v2-date-val {
+      font-size: 13px;
+      color: #B8860B;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .cert-v2-sn {
+      text-align: right;
+    }
+    .cert-v2-sn-label {
+      font-size: 10px;
+      color: #999;
+      letter-spacing: 1px;
+    }
+    .cert-v2-sn-val {
+      font-size: 11px;
+      color: #B8860B;
+      font-weight: 600;
+      margin-top: 2px;
+      font-family: monospace;
+    }
+    /* 印章 */
+    .cert-v2-seal {
+      position: absolute;
+      bottom: 60px;
+      right: 28px;
+      width: 64px;
+      height: 64px;
+      border: 3px solid rgba(255,107,91,0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-15deg);
+      opacity: 0.7;
+    }
+    .cert-v2-seal::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(255,107,91,0.4);
+      border-radius: 50%;
+    }
+    .cert-v2-seal-text {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255,107,91,0.8);
+      text-align: center;
+      line-height: 1.3;
+      letter-spacing: 0.5px;
+    }
+
+    /* AI合影结果展示 */
+    .photo-result-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .photo-result-wrap img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+    }
+    .photo-result-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      padding: 20px 16px 14px;
+      border-radius: 0 0 16px 16px;
+    }
+    .photo-result-label {
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* 全套保存按钮 */
+    .full-save-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .save-btn-primary {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      color: #2D2826;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255,165,0,0.35);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .save-btn-primary:active { transform: scale(0.98); }
+    .save-btn-secondary {
+      width: 100%;
+      padding: 14px;
+      background: var(--bg-warm);
+      color: var(--text-secondary);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 14px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .save-btn-secondary:active { background: var(--secondary-light); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 封面页 -->
+    <div class="page-cover" id="pageCover">
+      <div class="cover-content" id="coverContent">
+        <div class="cover-logo">🐾</div>
+        <div class="cover-badge">
+          <span class="cover-badge-dot"></span>
+          AI智能匹配
+        </div>
+        <span class="cover-hero">🐱🐕🦜</span>
+        <h1 class="cover-title">
+          测一测<br>
+          <span class="cover-title-accent">你的命中注定宠物</span>
+        </h1>
+        <p class="cover-subtitle">
+          回答11个问题，AI为你精准推荐最适合你的宠物伙伴
+        </p>
+        <button class="start-btn" onclick="startQuiz()">
+          开始测试 →
+        </button>
+      </div>
+    </div>
+
+    <!-- 问卷页 -->
+    <div class="page-quiz" id="pageQuiz">
+      <div class="quiz-header">
+        <button class="quiz-back" id="quizBack" onclick="prevQuestion()">←</button>
+        <div class="quiz-progress">
+          <div class="quiz-progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <span class="quiz-progress-text" id="progressText">1/11</span>
+      </div>
+
+      <div class="quiz-content">
+        <div class="question-card" id="questionCard">
+          <div class="question-meta">
+            <span class="question-tag" id="questionTag">居住空间</span>
+            <span class="question-number" id="questionNumber">Q1</span>
+          </div>
+          <h2 class="question-text" id="questionText">你住什么类型的房子？</h2>
+          
+          <div class="options" id="options"></div>
+
+          <div class="note-section">
+            <div class="note-header">
+              <span class="note-icon">💡</span>
+              <span class="note-label">补充说明</span>
+              <span class="note-hint">（选填，可详细描述）</span>
+            </div>
+            <textarea 
+              class="note-input" 
+              id="noteInput" 
+              placeholder="例如：和室友合租，有个客厅；偶尔出差一周..."
+            ></textarea>
+            <div class="note-footer">
+              <span class="note-char-count"><span id="noteCharCount">0</span>/200</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-footer">
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一步</button>
+      </div>
+    </div>
+
+    <!-- 加载页 -->
+    <div class="page-loading" id="pageLoading">
+      <div class="loading-icon-wrap">🔮</div>
+      <h2 class="loading-title">AI分析中...</h2>
+      <p class="loading-text">正在为你匹配最合适的宠物</p>
+      <div class="loading-dots">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    </div>
+
+    <!-- 结果页 -->
+    <div class="page-result" id="pageResult">
+      <div class="result-hero">
+        <div class="result-badge">🎉 命中注定</div>
+        <div class="result-pet">
+          <span class="result-emoji" id="resultEmoji">🐱</span>
+          <h1 class="result-name" id="resultName">英短蓝白</h1>
+          <p class="result-score">匹配度 <span id="resultScore">95</span>%</p>
+        </div>
+      </div>
+
+      <div class="result-content">
+        <div class="result-card">
+          <div class="result-card-title">✨ 为什么是你？</div>
+          <p class="result-card-text" id="resultReason">
+            你喜欢安静独立的生活方式...
+          </p>
+        </div>
+
+        <div class="result-card">
+          <div class="result-card-title">🏆 TOP 3 推荐</div>
+          <div class="top3-list" id="top3List"></div>
+        </div>
+
+        <div class="result-actions">
+          <button class="action-btn secondary" onclick="restartQuiz()">
+            🔄 重新测试
+          </button>
+          <button class="action-btn primary" onclick="shareResult()">
+            📤 分享结果
+          </button>
+        </div>
+
+        <div class="result-card pay-section">
+          <div class="pay-title">🔓 解锁更多内容</div>
+          <div class="pay-options">
+            <div class="pay-option" id="payBasic" onclick="selectPay('basic')">
+              <div class="pay-option-header">
+                <span class="pay-option-name">详细分析报告</span>
+                <span class="pay-option-price">¥0.99</span>
+              </div>
+              <p class="pay-option-desc">性格分析 + 养护指南 + 费用预算 + 注意事项</p>
+            </div>
+            <div class="pay-option" id="payFull" onclick="selectPay('full')">
+              <div class="pay-option-header">
+                <span class="pay-option-name">完整领养套装</span>
+                <span class="pay-option-price">¥6.9</span>
+              </div>
+              <p class="pay-option-desc">详细报告 + AI宠物合影 + 电子领养证书</p>
+            </div>
+          </div>
+          
+          <!-- 购买说明 -->
+          <div class="pay-guide">
+            <div class="pay-guide-title">📋 购买流程</div>
+            <div class="pay-guide-steps">
+              <span class="step">① 选择套餐</span>
+              <span class="step">② 去小红书购买</span>
+              <span class="step">③ 获取解锁码</span>
+            </div>
+          </div>
+          
+          <button class="pay-btn active" id="payBtn" onclick="doPay()">
+            <span class="btn-text">去小红书购买 →</span>
+          </button>
+          <button class="unlock-btn" onclick="showUnlockModal()">
+            💬 已购买？输入解锁码
+          </button>
+        </div>
+        
+        <!-- 解锁码弹窗 -->
+        <div class="unlock-modal" id="unlockModal">
+          <div class="unlock-modal-content">
+            <div class="unlock-modal-title">🎫 输入解锁码</div>
+            <p class="unlock-modal-tip">购买后，小红书私信会发送解锁码给我</p>
+            <input type="text" class="unlock-input" id="unlockCode" placeholder="请输入解锁码" maxlength="20">
+            <div class="unlock-error" id="unlockError" style="display: none;">解锁码无效，请检查后重试</div>
+            <div class="unlock-buttons">
+              <button class="unlock-btn-cancel" onclick="closeUnlockModal()">取消</button>
+              <button class="unlock-btn-confirm" onclick="verifyUnlockCode()">确认解锁</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 分享弹窗 -->
+    <div class="share-modal" id="shareModal">
+      <div class="share-modal-content">
+        <div class="share-modal-title">📤 分享到小红书</div>
+        <textarea class="share-modal-text" id="shareText" readonly></textarea>
+        <p class="share-modal-tip">长按复制文案，截图分享</p>
+        <button class="share-modal-btn" onclick="closeShareModal()">关闭</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script>
+    // =====================
+    // MiniMax API 配置
+    // =====================
+    const MINIMAX_API_KEY = 'sk-api-C9puV671BWuNKcyt2QABOQ-z9g353ostxkilTaUQ4uApd08NLB_2oa2EsXOTyjMwSWrNMKk54-rYpMZolxPYuXoX55hqjJChqx0jV1l9HGdKSXk9KT4rOcs';
+    const MINIMAX_GROUP_ID = '1774425090165';
+
+    // =====================
+    // 宠物数据库（102种宠物，覆盖所有排列组合）
+    // 维度：空间[0-3] 时间[0-3] 预算[0-3] 经验[0-3] 互动[0-3] 性格[0-2] 家庭[0-3] 掉毛[0-3] 目的[0-3] 偏好[0-3]
+    // =====================
+    const PET_DATABASE = [
+      // ═══════════════════════════════════════
+      // 猫咪（20种）
+      // ═══════════════════════════════════════
+      { id:'british_short_blue', name:'英短蓝白', emoji:'🐱', type:'cat',
+        space:1, time:1, budget:2, exp:0, interact:0, personality:0, family:1, fur:2, purpose:0, rare:1,
+        desc:'慵懒温柔的贵族气质，最适合爱安静的都市人' },
+      { id:'ragdoll', name:'布偶猫', emoji:'🐈', type:'cat',
+        space:1, time:1, budget:3, exp:1, interact:1, personality:0, family:1, fur:2, purpose:0, rare:2,
+        desc:'温顺如玩偶，被称为"狗性格的猫"，超适合想要黏人猫咪的人' },
+      { id:'american_short_tiger', name:'美短虎斑', emoji:'🐱', type:'cat',
+        space:1, time:2, budget:1, exp:0, interact:1, personality:2, family:2, fur:1, purpose:0, rare:0,
+        desc:'活泼好奇，亲人友善，是家庭宠物的热门之选' },
+      { id:'persian', name:'波斯猫', emoji:'🐈', type:'cat',
+        space:0, time:1, budget:2, exp:1, interact:0, personality:0, family:0, fur:2, purpose:1, rare:2,
+        desc:'安静优雅，观赏性极强，需要定期梳理长毛' },
+      { id:'siamese', name:'暹罗猫', emoji:'🐱', type:'cat',
+        space:1, time:2, budget:1, exp:1, interact:2, personality:1, family:1, fur:0, purpose:0, rare:1,
+        desc:'话痨小猫，粘主人，爱互动，掉毛少' },
+      { id:'orange_cat', name:'橘猫', emoji:'🐱', type:'cat',
+        space:1, time:1, budget:0, exp:0, interact:1, personality:2, family:2, fur:2, purpose:0, rare:0,
+        desc:'十橘九胖，憨厚亲人，是最平易近人的猫界代表' },
+      { id:'li_hua', name:'狸花猫', emoji:'🐱', type:'cat',
+        space:1, time:1, budget:0, exp:0, interact:1, personality:2, family:2, fur:2, purpose:0, rare:0,
+        desc:'中华田园猫之魂，身体皮实好养活，捕鼠能力满分' },
+      { id:'devon_rex', name:'德文卷毛猫', emoji:'🐱', type:'cat',
+        space:0, time:2, budget:2, exp:1, interact:2, personality:1, family:1, fur:0, purpose:1, rare:2,
+        desc:'精灵般的小脸，不掉毛又粘人，是过敏星人的福音' },
+      { id:'sphynx', name:'无毛猫', emoji:'🐱', type:'cat',
+        space:0, time:2, budget:2, exp:1, interact:2, personality:1, family:1, fur:0, purpose:3, rare:2,
+        desc:'光滑的皮肤，温暖的身体，只掉皮屑不掉毛，适合过敏但爱猫的人' },
+      { id:'scottish_fold', name:'苏格兰折耳', emoji:'🐱', type:'cat',
+        space:0, time:1, budget:2, exp:0, interact:1, personality:0, family:2, fur:1, purpose:0, rare:2,
+        desc:'耳朵折起来的可爱精灵，但需注意软骨问题' },
+      { id:'maine_coon', name:'缅因猫', emoji:'🐱', type:'cat',
+        space:2, time:2, budget:3, exp:1, interact:2, personality:1, family:2, fur:2, purpose:3, rare:2,
+        desc:'猫中巨人，像狗一样忠诚，叫声像小鸟' },
+      { id:'bengal', name:'孟加拉豹猫', emoji:'🐱', type:'cat',
+        space:2, time:2, budget:2, exp:1, interact:2, personality:2, family:1, fur:1, purpose:3, rare:3,
+        desc:'野性花纹，豹子血统，超爱运动和玩水' },
+      { id:'british_longhair', name:'英长蓝白', emoji:'🐱', type:'cat',
+        space:1, time:1, budget:2, exp:0, interact:0, personality:0, family:1, fur:2, purpose:0, rare:1,
+        desc:'英短的温柔灵魂，加上飘逸的长毛，更显高贵' },
+      { id:'snowshoe', name:'雪鞋猫', emoji:'🐱', type:'cat',
+        space:1, time:1, budget:2, exp:1, interact:1, personality:0, family:2, fur:1, purpose:0, rare:2,
+        desc:'白手套白靴子，像穿着雪地靴的贵族' },
+      { id:'burmese', name:'缅甸猫', emoji:'🐱', type:'cat',
+        space:0, time:2, budget:2, exp:1, interact:2, personality:1, family:2, fur:1, purpose:0, rare:2,
+        desc:'像巧克力块一样的猫咪，非常亲人爱叫' },
+      { id:'russian_blue', name:'俄罗斯蓝猫', emoji:'🐱', type:'cat',
+        space:0, time:1, budget:2, exp:1, interact:1, personality:0, family:1, fur:0, purpose:1, rare:2,
+        desc:'银蓝色被毛，绿宝石眼睛，安静害羞但很忠诚' },
+      { id:'abyssinian', name:'阿比西尼亚猫', emoji:'🐱', type:'cat',
+        space:1, time:2, budget:2, exp:1, interact:2, personality:2, family:1, fur:1, purpose:2, rare:2,
+        desc:'古老神秘的品种，像小狮子一样活泼好奇' },
+      { id:'british_cream', name:'英短乳色', emoji:'🐱', type:'cat',
+        space:1, time:1, budget:2, exp:0, interact:0, personality:0, family:1, fur:2, purpose:0, rare:1,
+        desc:'奶油色调的英短，温暖治愈，适合独居人士' },
+      { id:'mix_cat', name:'中华田园猫', emoji:'🐱', type:'cat',
+        space:1, time:1, budget:0, exp:0, interact:1, personality:2, family:3, fur:2, purpose:0, rare:0,
+        desc:'混血田园猫，身体皮实性格多样，总有一款适合你' },
+      { id:'norwegian_forest', name:'挪威森林猫', emoji:'🐱', type:'cat',
+        space:2, time:2, budget:3, exp:1, interact:1, personality:0, family:2, fur:3, purpose:1, rare:2,
+        desc:'北欧风森林猫，长毛飘逸，独立又优雅' },
+      { id:'singapura', name:'新加坡猫', emoji:'🐱', type:'cat',
+        space:0, time:1, budget:1, exp:1, interact:1, personality:0, family:1, fur:1, purpose:1, rare:3,
+        desc:'世界上最小的猫咪品种，芝麻色的迷你精灵' },
+
+      // ═══════════════════════════════════════
+      // 狗狗（25种）
+      // ═══════════════════════════════════════
+      { id:'golden', name:'金毛寻回犬', emoji:'🐕', type:'dog',
+        space:2, time:2, budget:2, exp:1, interact:2, personality:1, family:2, fur:3, purpose:0, rare:0,
+        desc:'忠诚友善，天生爱人类，是家庭犬的完美典范' },
+      { id:'labrador', name:'拉布拉多', emoji:'🐶', type:'dog',
+        space:2, time:2, budget:2, exp:0, interact:2, personality:1, family:2, fur:1, purpose:0, rare:0,
+        desc:'温顺活泼，超级友善，新手养狗的最佳选择' },
+      { id:'corgi', name:'柯基犬', emoji:'🐕', type:'dog',
+        space:1, time:2, budget:1, exp:0, interact:2, personality:1, family:1, fur:2, purpose:3, rare:1,
+        desc:'萌翻全网的短腿走路姿势，自带网红气质' },
+      { id:'shiba', name:'柴犬', emoji:'🐕', type:'dog',
+        space:1, time:2, budget:1, exp:1, interact:1, personality:0, family:0, fur:2, purpose:3, rare:1,
+        desc:'傲娇独立，表情包之王，有日系清冷美' },
+      { id:'bichon', name:'比熊犬', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:1, exp:0, interact:1, personality:0, family:2, fur:0, purpose:0, rare:0,
+        desc:'雪球般可爱，不掉毛，适合小空间和老人小孩' },
+      { id:'border_collie', name:'边境牧羊犬', emoji:'🐕', type:'dog',
+        space:3, time:3, budget:2, exp:2, interact:3, personality:1, family:1, fur:2, purpose:2, rare:1,
+        desc:'智商第一的狗，超爱运动和训练，需要大量陪伴' },
+      { id:'husky', name:'哈士奇', emoji:'🐺', type:'dog',
+        space:2, time:3, budget:2, exp:1, interact:2, personality:1, family:1, fur:2, purpose:3, rare:1,
+        desc:'二哈破坏王，自带拆家属性，但帅气迷人' },
+      { id:'poodle', name:'贵宾犬', emoji:'🐩', type:'dog',
+        space:0, time:2, budget:1, exp:0, interact:2, personality:1, family:2, fur:0, purpose:0, rare:0,
+        desc:'聪明不掉毛，能适应各种空间，超高颜值' },
+      { id:'shih_tzu', name:'西施犬', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:1, exp:0, interact:1, personality:0, family:2, fur:1, purpose:1, rare:0,
+        desc:'温顺乖巧，适合小户型，是老人和家庭的好伴侣' },
+      { id:'samoyed', name:'萨摩耶', emoji:'🐕', type:'dog',
+        space:2, time:2, budget:2, exp:1, interact:2, personality:2, family:2, fur:3, purpose:0, rare:1,
+        desc:'微笑天使，一身白毛暖化人心，但掉毛季很壮观' },
+      { id:'alaskan', name:'阿拉斯加', emoji:'🐺', type:'dog',
+        space:3, time:2, budget:2, exp:1, interact:1, personality:0, family:2, fur:3, purpose:3, rare:1,
+        desc:'大型雪橇犬，威武雄壮，其实是个大宝宝' },
+      { id:'pomeranian', name:'博美', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:1, exp:0, interact:1, personality:2, family:1, fur:2, purpose:3, rare:0,
+        desc:'毛茸茸的小球，叫声洪亮，是优秀的看门犬' },
+      { id:'french_bulldog', name:'法国斗牛犬', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:2, exp:0, interact:1, personality:0, family:2, fur:1, purpose:3, rare:1,
+        desc:'蝙蝠耳大饼脸，安静不爱叫，适合公寓' },
+      { id:'bulldog', name:'英国斗牛犬', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:1, exp:0, interact:0, personality:0, family:2, fur:1, purpose:1, rare:1,
+        desc:'丑萌代言人，性格温和，运动量很小' },
+      { id:'beagle', name:'比格犬', emoji:'🐶', type:'dog',
+        space:1, time:2, budget:1, exp:0, interact:2, personality:2, family:2, fur:2, purpose:2, rare:0,
+        desc:'大耳朵小短腿，嗅觉冠军，性格活泼爱玩' },
+      { id:'dachshund', name:'腊肠犬', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:1, exp:0, interact:1, personality:1, family:2, fur:2, purpose:3, rare:0,
+        desc:'长长的小身子，挖掘本能强，可爱又搞笑' },
+      { id:'schnauzer', name:'雪纳瑞', emoji:'🐶', type:'dog',
+        space:0, time:2, budget:1, exp:1, interact:1, personality:1, family:2, fur:0, purpose:3, rare:1,
+        desc:'白眉毛白胡子，像个小老头，其实很活泼' },
+      { id:'chihuahua', name:'吉娃娃', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:0, exp:0, interact:1, personality:2, family:0, fur:0, purpose:3, rare:0,
+        desc:'世界上最小型的犬种，适合随身携带，但爱叫' },
+      { id:'maltese', name:'马尔济斯', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:2, exp:1, interact:1, personality:0, family:2, fur:0, purpose:1, rare:1,
+        desc:'纯白丝毛，像个棉花糖公主，优雅又可爱' },
+      { id:'lhasa_apso', name:'拉萨犬', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:1, exp:1, interact:0, personality:0, family:1, fur:2, purpose:1, rare:1,
+        desc:'西藏古老犬种，长毛飘逸，独立警觉' },
+      { id:'rottweiler', name:'罗威纳', emoji:'🐕', type:'dog',
+        space:2, time:2, budget:2, exp:1, interact:1, personality:0, family:1, fur:1, purpose:3, rare:1,
+        desc:'护卫犬本能强，外表威武，内心温柔粘人' },
+      { id:'doberman', name:'杜宾犬', emoji:'🐕', type:'dog',
+        space:2, time:2, budget:2, exp:1, interact:1, personality:0, family:0, fur:0, purpose:3, rare:2,
+        desc:'线条优美，护卫能力强，是帅气与智慧并存' },
+      { id:'westie', name:'西高地白梗', emoji:'🐶', type:'dog',
+        space:0, time:2, budget:1, exp:1, interact:1, personality:2, family:1, fur:0, purpose:3, rare:1,
+        desc:'白色小勇士，活泼好动不掉毛，适合过敏人士' },
+      { id:'sharpei', name:'沙皮犬', emoji:'🐶', type:'dog',
+        space:1, time:1, budget:1, exp:1, interact:0, personality:0, family:1, fur:0, purpose:3, rare:2,
+        desc:'满身皱纹像老头，性格安静独立' },
+      { id:'japanese_chin', name:'日本狆', emoji:'🐶', type:'dog',
+        space:0, time:1, budget:2, exp:1, interact:1, personality:0, family:1, fur:1, purpose:1, rare:2,
+        desc:'东瀛贵族气质，和猫很合得来，适合有猫家庭' },
+
+      // ═══════════════════════════════════════
+      // 鸟类（20种）
+      // ═══════════════════════════════════════
+      { id:'budgie', name:'虎皮鹦鹉', emoji:'🦜', type:'bird',
+        space:0, time:1, budget:0, exp:0, interact:1, personality:1, family:1, fur:0, purpose:1, rare:0,
+        desc:'价格亲民，颜色鲜艳，能学说话，适合初次养鸟' },
+      { id:'cockatiel', name:'玄凤鹦鹉', emoji:'🦜', type:'bird',
+        space:0, time:2, budget:0, exp:0, interact:2, personality:1, family:1, fur:0, purpose:0, rare:0,
+        desc:'温柔亲人，会口哨，比虎皮更爱黏人' },
+      { id:'lovebird', name:'牡丹鹦鹉', emoji:'🦜', type:'bird',
+        space:0, time:1, budget:0, exp:0, interact:2, personality:2, family:0, fur:0, purpose:3, rare:0,
+        desc:'爱情鸟，成双成对才快乐，感情非常专一' },
+      { id:'cockatoo', name:'葵花凤头鹦鹉', emoji:'🦜', type:'bird',
+        space:1, time:2, budget:2, exp:1, interact:2, personality:2, family:0, fur:1, purpose:3, rare:2,
+        desc:'金冠大白鹦鹉，能歌善舞，但叫声很大' },
+      { id:'african_grey', name:'非洲灰鹦鹉', emoji:'🦜', type:'bird',
+        space:1, time:2, budget:3, exp:2, interact:2, personality:0, family:0, fur:0, purpose:3, rare:3,
+        desc:'鹦鹉界的智商担当，词汇量惊人，需要大量陪伴' },
+      { id:'macaw', name:'金刚鹦鹉', emoji:'🦜', type:'bird',
+        space:2, time:3, budget:3, exp:2, interact:2, personality:1, family:0, fur:1, purpose:3, rare:3,
+        desc:'彩虹般的羽毛，大型鹦鹉，需要大空间和高预算' },
+      { id:'zebra_finch', name:'斑胸草雀', emoji:'🐦', type:'bird',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:0,
+        desc:'小巧玲珑，叫声悦耳，成群饲养很热闹' },
+      { id:'society_finch', name:'白文鸟', emoji:'🐦', type:'bird',
+        space:0, time:0, budget:0, exp:0, interact:1, personality:0, family:2, fur:0, purpose:1, rare:0,
+        desc:'雪白圆润，非常温顺，适合安静的家庭' },
+      { id:'java_sparrow', name:'禾雀', emoji:'🐦', type:'bird',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:1,
+        desc:'灰白色小鸟，活泼好动，繁殖容易' },
+      { id:'canary', name:'金丝雀', emoji:'🐦', type:'bird',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:0, fur:0, purpose:2, rare:1,
+        desc:'天籁之音，黄色羽毛，是观赏鸣禽的首选' },
+      { id:'myna', name:'八哥', emoji:'🐦', type:'bird',
+        space:1, time:1, budget:0, exp:0, interact:1, personality:1, family:0, fur:0, purpose:2, rare:1,
+        desc:'能说人话的鸟，聪明亲人，是传统宠物' },
+      { id:'hill_myna', name:'鹩哥', emoji:'🐦', type:'bird',
+        space:1, time:1, budget:1, exp:1, interact:1, personality:1, family:0, fur:0, purpose:2, rare:2,
+        desc:'比八哥更能学说话，鸣唱能力更强' },
+      { id:'parakeet', name:'月轮鹦鹉', emoji:'🦜', type:'bird',
+        space:0, time:1, budget:1, exp:0, interact:1, personality:1, family:1, fur:0, purpose:1, rare:1,
+        desc:'绿色主调的鹦鹉，能学会简单词汇' },
+      { id:'lorikeet', name:'吸蜜鹦鹉', emoji:'🦜', type:'bird',
+        space:1, time:1, budget:1, exp:1, interact:2, personality:2, family:1, fur:0, purpose:1, rare:2,
+        desc:'颜色鲜艳，以花蜜水果为主食，需要特殊饮食' },
+      { id:'senegal_parrot', name:'塞内加尔鹦鹉', emoji:'🦜', type:'bird',
+        space:1, time:2, budget:2, exp:1, interact:1, personality:0, family:0, fur:0, purpose:3, rare:2,
+        desc:'绿色中型鹦鹉，性格稳重，比较安静' },
+      { id:'ringneck', name:'环颈鹦鹉', emoji:'🦜', type:'bird',
+        space:1, time:2, budget:1, exp:1, interact:1, personality:1, family:1, fur:0, purpose:2, rare:1,
+        desc:'脖子上有圈环，中大型鹦鹉，能学说话' },
+      { id:'dove', name:'珍珠鸽', emoji:'🐦', type:'bird',
+        space:0, time:1, budget:0, exp:0, interact:1, personality:0, family:2, fur:0, purpose:1, rare:0,
+        desc:'温柔安静的鸟类，象征和平与爱' },
+      { id:'turtledove', name:'斑鸠', emoji:'🐦', type:'bird',
+        space:1, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:0,
+        desc:'野生鸟类，寓意美好，简单好养' },
+      { id:'waterfowl_chicken', name:'芦丁鸡', emoji:'🐦', type:'bird',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:0,
+        desc:'迷你鸡蛋机，阳台就能养，产蛋小能手' },
+      { id:'pekin_bantam', name:'元宝鸽', emoji:'🐦', type:'bird',
+        space:1, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:1,
+        desc:'鼓起胸脯像元宝，观赏鸽的一种' },
+
+      // ═══════════════════════════════════════
+      // 小型哺乳动物（15种）
+      // ═══════════════════════════════════════
+      { id:'hamster', name:'仓鼠', emoji:'🐹', type:'small',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:1, purpose:1, rare:0,
+        desc:'迷你治愈，价格低廉，独自在家也能照顾好' },
+      { id:'dwarf_hamster', name:'侏儒仓鼠', emoji:'🐹', type:'small',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:1, purpose:1, rare:0,
+        desc:'比普通仓鼠更小，品种多样，适合桌面饲养' },
+      { id:'rabbit', name:'家兔', emoji:'🐰', type:'small',
+        space:1, time:1, budget:1, exp:0, interact:1, personality:0, family:2, fur:2, purpose:1, rare:0,
+        desc:'温顺可爱，适合安静的家庭，有颜有料' },
+      { id:'lionhead_rabbit', name:'狮子猫兔', emoji:'🐰', type:'small',
+        space:1, time:1, budget:1, exp:0, interact:1, personality:0, family:2, fur:2, purpose:1, rare:1,
+        desc:'像狮子一样的毛围脖，超高颜值' },
+      { id:'netherland_dwarf', name:'荷兰侏儒兔', emoji:'🐰', type:'small',
+        space:0, time:1, budget:1, exp:1, interact:1, personality:0, family:1, fur:1, purpose:1, rare:2,
+        desc:'小小一只，兔子界的萌神' },
+      { id:'chinchilla', name:'龙猫', emoji:'🐭', type:'small',
+        space:1, time:1, budget:2, exp:1, interact:1, personality:0, family:1, fur:1, purpose:1, rare:2,
+        desc:'软萌毛球，超级可爱，需要低温环境' },
+      { id:'guinea_pig', name:'荷兰猪', emoji:'🐹', type:'small',
+        space:1, time:1, budget:1, exp:0, interact:1, personality:1, family:2, fur:1, purpose:1, rare:0,
+        desc:'呆萌可爱，不咬人，适合有小孩的家庭' },
+      { id:'ferret', name:'雪貂', emoji:'🦡', type:'small',
+        space:1, time:2, budget:2, exp:1, interact:2, personality:1, family:0, fur:1, purpose:3, rare:2,
+        desc:'调皮灵活，超有个性，是最有存在感的小型宠物' },
+      { id:'hedgehog', name:'非洲迷你刺猬', emoji:'🦔', type:'small',
+        space:0, time:0, budget:1, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:2,
+        desc:'小小的刺球，晚上活跃，需要耐心培养信任' },
+      { id:'sugar_glider', name:'蜜袋鼯', emoji:'🐨', type:'small',
+        space:1, time:1, budget:1, exp:1, interact:2, personality:1, family:0, fur:0, purpose:3, rare:2,
+        desc:'会滑翔的小飞鼠，需要群居，非常亲人' },
+      { id:'rat', name:'花枝鼠', emoji:'🐀', type:'small',
+        space:0, time:1, budget:0, exp:0, interact:2, personality:2, family:1, fur:0, purpose:3, rare:0,
+        desc:'比仓鼠更聪明亲人，能学会很多小把戏' },
+      { id:'gerbil', name:'沙鼠', emoji:'🐹', type:'small',
+        space:0, time:0, budget:0, exp:0, interact:1, personality:0, family:1, fur:0, purpose:1, rare:0,
+        desc:'爱挖洞爱沙浴，尾巴长长的，很爱干净' },
+      { id:'degu', name:'八齿鼠', emoji:'🐹', type:'small',
+        space:0, time:1, budget:0, exp:0, interact:1, personality:0, family:1, fur:0, purpose:1, rare:1,
+        desc:'来自南美的可爱小鼠，性格温顺' },
+      { id:'ferret_badger', name:'雪地松鼠', emoji:'🐿️', type:'small',
+        space:1, time:1, budget:1, exp:0, interact:1, personality:0, family:1, fur:2, purpose:1, rare:1,
+        desc:'毛茸茸的大尾巴，活泼好动需要大笼子' },
+      { id:'pot_bellied_pig', name:'迷你香猪', emoji:'🐷', type:'small',
+        space:2, time:2, budget:2, exp:1, interact:2, personality:1, family:1, fur:0, purpose:3, rare:2,
+        desc:'小猪也很可爱，但需要足够的空间和耐心' },
+
+      // ═══════════════════════════════════════
+      // 爬行/异宠（12种）
+      // ═══════════════════════════════════════
+      { id:'leopard_gecko', name:'豹纹守宫', emoji:'🦎', type:'reptile',
+        space:0, time:0, budget:1, exp:0, interact:0, personality:0, family:0, fur:0, purpose:1, rare:2,
+        desc:'简单好养，不掉毛不叫声，最适合宿舍和独居族' },
+      { id:'crested_gecko', name:'睫角守宫', emoji:'🦎', type:'reptile',
+        space:0, time:0, budget:1, exp:0, interact:1, personality:0, family:0, fur:0, purpose:1, rare:2,
+        desc:'有睫毛的守宫，不需要UVB喂食，简单好养' },
+      { id:'ball_python', name:'球蟒', emoji:'🐍', type:'reptile',
+        space:1, time:0, budget:1, exp:1, interact:0, personality:0, family:0, fur:0, purpose:3, rare:3,
+        desc:'温顺无毒，维护成本低，是爬宠入门首选' },
+      { id:'corn_snake', name:'玉米蛇', emoji:'🐍', type:'reptile',
+        space:0, time:0, budget:1, exp:0, interact:1, personality:0, family:0, fur:0, purpose:3, rare:2,
+        desc:'颜色艳丽，性格温顺，是最受欢迎的宠物蛇' },
+      { id:'king_snake', name:'王蛇', emoji:'🐍', type:'reptile',
+        space:0, time:0, budget:1, exp:0, interact:0, personality:0, family:0, fur:0, purpose:3, rare:2,
+        desc:'黑白相间的豹纹之王，对蛇类毒免疫' },
+      { id:'bearded_dragon', name:'鬃狮蜥', emoji:'🦎', type:'reptile',
+        space:1, time:1, budget:2, exp:1, interact:1, personality:2, family:1, fur:0, purpose:3, rare:2,
+        desc:'性格温顺，可以上手把玩，爬宠中颜值最高' },
+      { id:'blue_tongue_skink', name:'蓝舌石龙子', emoji:'🦎', type:'reptile',
+        space:0, time:1, budget:1, exp:0, interact:1, personality:0, family:1, fur:0, purpose:1, rare:2,
+        desc:'蓝色大舌头，很亲人，饲养相对简单' },
+      { id:'green_iguana', name:'绿鬣蜥', emoji:'🦎', type:'reptile',
+        space:2, time:1, budget:2, exp:2, interact:0, personality:0, family:0, fur:0, purpose:3, rare:2,
+        desc:'可以长到一米多，需要大空间和高温环境' },
+      { id:'red_eared_slider', name:'巴西红耳龟', emoji:'🐢', type:'reptile',
+        space:1, time:0, budget:0, exp:0, interact:0, personality:0, family:2, fur:0, purpose:1, rare:0,
+        desc:'寓意吉祥，好养长寿，适合家庭和老人' },
+      { id:'chinese_pond_turtle', name:'草龟', emoji:'🐢', type:'reptile',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:0,
+        desc:'中华本土龟，温顺好养，有灵性' },
+      { id:'pacman_frog', name:'角蛙', emoji:'🐸', type:'reptile',
+        space:0, time:0, budget:1, exp:0, interact:0, personality:0, family:0, fur:0, purpose:1, rare:2,
+        desc:'大嘴巴的萌蛙，大部分时间一动不动' },
+      { id:'emperor_scorpion', name:'雨林蝎', emoji:'🦂', type:'reptile',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:0, fur:0, purpose:3, rare:1,
+        desc:'黑色的雨林蝎子，看起来酷炫其实很温顺' },
+
+      // ═══════════════════════════════════════
+      // 水族（10种）
+      // ═══════════════════════════════════════
+      { id:'betta', name:'斗鱼', emoji:'🐠', type:'fish',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:0,
+        desc:'颜色绚丽，独居即可，是最省心的观赏宠物' },
+      { id:'goldfish', name:'金鱼', emoji:'🐟', type:'fish',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:2, fur:0, purpose:1, rare:0,
+        desc:'传统观赏鱼，品种繁多，寓意金玉满堂' },
+      { id:'arowana', name:'金龙鱼', emoji:'🐟', type:'fish',
+        space:2, time:1, budget:3, exp:2, interact:0, personality:0, family:0, fur:0, purpose:3, rare:3,
+        desc:'风水神鱼，彰显品味，是高端养鱼爱好者的追求' },
+      { id:'clownfish', name:'小丑鱼', emoji:'🐠', type:'fish',
+        space:1, time:1, budget:2, exp:1, interact:0, personality:0, family:2, fur:0, purpose:1, rare:1,
+        desc:'"海底总动员"原型，海水鱼中最亲民的入门选择' },
+      { id:'guppy', name:'孔雀鱼', emoji:'🐟', type:'fish',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:2, fur:0, purpose:1, rare:0,
+        desc:'繁殖容易，尾巴像孔雀，适合新手入门' },
+      { id:'betta_fighter', name:'泰国斗鱼', emoji:'🐠', type:'fish',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:2, family:0, fur:0, purpose:3, rare:1,
+        desc:'会打架的美丽小鱼，展尾像舞裙' },
+      { id:'angelfish', name:'神仙鱼', emoji:'🐠', type:'fish',
+        space:1, time:1, budget:1, exp:1, interact:0, personality:0, family:1, fur:0, purpose:1, rare:1,
+        desc:'优雅的三角形体型，游姿飘逸' },
+      { id:'neon_tetra', name:'霓虹灯鱼', emoji:'🐟', type:'fish',
+        space:0, time:0, budget:0, exp:0, interact:0, personality:0, family:1, fur:0, purpose:1, rare:0,
+        desc:'蓝色发光的迷你小鱼，成群游动很美' },
+      { id:'discus', name:'七彩神仙', emoji:'🐠', type:'fish',
+        space:1, time:1, budget:2, exp:2, interact:1, personality:0, family:1, fur:0, purpose:2, rare:3,
+        desc:'热带鱼皇后，颜色艳丽，但对水质要求高' },
+      { id:'axolotl', name:'六角恐龙', emoji:'🐙', type:'fish',
+        space:0, time:0, budget:1, exp:0, interact:1, personality:0, family:0, fur:0, purpose:3, rare:2,
+        desc:'会微笑的蝾螈，外星萌宠，不需要UVB' },
+    ];
+
+    // 问卷题目
+    const questions = [
+      {
+        tag: "居住空间",
+        question: "你住什么类型的房子？",
+        options: [
+          { icon: "🏠", text: "单间/合租" },
+          { icon: "🏢", text: "一居室" },
+          { icon: "🏡", text: "两室或以上" },
+          { icon: "🏰", text: "别墅/有大院子" }
+        ]
+      },
+      {
+        tag: "工作时间",
+        question: "你的工作时间怎么样？",
+        options: [
+          { icon: "💼", text: "经常加班，经常不在家" },
+          { icon: "🕘", text: "朝九晚六，偶尔加班" },
+          { icon: "⏰", text: "弹性工作，时间较自由" },
+          { icon: "☁️", text: "自由职业/居家办公" }
+        ]
+      },
+      {
+        tag: "预算",
+        question: "你每月能花多少钱养宠物？",
+        options: [
+          { icon: "💰", text: "300元以内" },
+          { icon: "💵", text: "300-800元" },
+          { icon: "💳", text: "800-1500元" },
+          { icon: "💎", text: "1500元以上" }
+        ]
+      },
+      {
+        tag: "养宠经验",
+        question: "你之前养过宠物吗？",
+        options: [
+          { icon: "🌱", text: "完全没养过，是新手" },
+          { icon: "📖", text: "养过但经验不多" },
+          { icon: "⭐", text: "有几年经验" },
+          { icon: "🏆", text: "养宠老手，什么都养过" }
+        ]
+      },
+      {
+        tag: "互动偏好",
+        question: "你希望和宠物怎么互动？",
+        options: [
+          { icon: "🛋️", text: "各玩各的，偶尔撸一下" },
+          { icon: "🎾", text: "每天陪玩，但不过分打扰" },
+          { icon: "🤝", text: "随时互动，像家人一样" },
+          { icon: "🦜", text: "喜欢训练，学新技能" }
+        ]
+      },
+      {
+        tag: "性格偏好",
+        question: "你喜欢什么性格的宠物？",
+        options: [
+          { icon: "😌", text: "安静乖巧，不吵不闹" },
+          { icon: "⚡", text: "活泼好动，充满能量" },
+          { icon: "⚖️", text: "平衡就好" }
+        ]
+      },
+      {
+        tag: "家庭成员",
+        question: "你家有哪些成员？",
+        options: [
+          { icon: "🙋", text: "我自己住" },
+          { icon: "👫", text: "有室友/伴侣" },
+          { icon: "👨‍👩‍👧", text: "有小孩" },
+          { icon: "👴", text: "有老人同住" }
+        ]
+      },
+      {
+        tag: "掉毛接受",
+        question: "你能接受宠物掉毛吗？",
+        options: [
+          { icon: "😷", text: "完全不行，会过敏" },
+          { icon: "🤧", text: "尽量少掉毛的" },
+          { icon: "😐", text: "无所谓" },
+          { icon: "🐑", text: "喜欢毛茸茸的" }
+        ]
+      },
+      {
+        tag: "养宠目的",
+        question: "你养宠物的主要目的是？",
+        options: [
+          { icon: "❤️", text: "陪伴，让生活不孤单" },
+          { icon: "🎨", text: "观赏，好看就行" },
+          { icon: "🏃", text: "运动伙伴" },
+          { icon: "😎", text: "个性表达" }
+        ]
+      },
+      {
+        tag: "稀有偏好",
+        question: "你对宠物稀有度的态度是？",
+        options: [
+          { icon: "🏪", text: "普通常见就好" },
+          { icon: "🌟", text: "有点特别" },
+          { icon: "🦄", text: "想要小众独特的" },
+          { icon: "💎", text: "追求高端稀有" }
+        ]
+      },
+      {
+        tag: "宠物类型",
+        question: "你最想养什么类型的宠物？",
+        options: [
+          { icon: "🐱", text: "只要猫狗" },
+          { icon: "🐕", text: "优先猫狗" },
+          { icon: "🌈", text: "都可以" },
+          { icon: "🦎", text: "对爬宠/异宠感兴趣" }
+        ]
+      },
+      {
+        tag: "宠物大小",
+        question: "你喜欢什么体型的宠物？",
+        options: [
+          { icon: "🐹", text: "小型萌宠（仓鼠、鹦鹉等）" },
+          { icon: "🐱", text: "中型宠物（猫、中小型犬）" },
+          { icon: "🐕", text: "大型宠物（大型犬）" },
+          { icon: "🦎", text: "无所谓大小" }
+        ]
+      },
+      {
+        tag: "活跃时间",
+        question: "你希望宠物什么时候活跃？",
+        options: [
+          { icon: "☀️", text: "白天活动（跟随我的作息）" },
+          { icon: "🌙", text: "夜晚活动（夜行性）" },
+          { icon: "⏰", text: "无所谓，随时可能" }
+        ]
+      }
+    ];
+
+    // 状态
+    let currentQuestion = 0;
+    let answers = {};
+    let notes = {};
+    let selectedPay = null;
+    let aiResult = null;
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      const coverContent = document.getElementById('coverContent');
+      setTimeout(() => coverContent.classList.add('show'), 150);
+
+      // 补充说明输入监听
+      const noteInput = document.getElementById('noteInput');
+      noteInput.addEventListener('input', (e) => {
+        notes[currentQuestion] = e.target.value;
+        document.getElementById('noteCharCount').textContent = e.target.value.length;
+      });
+    });
+
+    // 开始测试
+    function startQuiz() {
+      currentQuestion = 0;
+      answers = {};
+      notes = {};
+      selectedPay = null;
+
+      document.getElementById('pageCover').style.display = 'none';
+      document.getElementById('pageQuiz').style.display = 'flex';
+      document.getElementById('pageResult').style.display = 'none';
+
+      renderQuestion();
+      updateProgress();
+    }
+
+    // 渲染问题
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+
+      document.getElementById('questionTag').textContent = q.tag;
+      document.getElementById('questionNumber').textContent = `Q${currentQuestion + 1}`;
+      document.getElementById('questionText').textContent = q.question;
+
+      const optionsHtml = q.options.map((opt, i) => `
+        <div class="option ${answers[currentQuestion] === i ? 'selected' : ''}" onclick="selectOption(${i})">
+          <span class="option-icon">${opt.icon}</span>
+          <span class="option-text">${opt.text}</span>
+          <span class="option-check">✓</span>
+        </div>
+      `).join('');
+      document.getElementById('options').innerHTML = optionsHtml;
+
+      // 恢复补充说明
+      const noteInput = document.getElementById('noteInput');
+      noteInput.value = notes[currentQuestion] || '';
+      document.getElementById('noteCharCount').textContent = noteInput.value.length;
+
+      // 更新按钮
+      const nextBtn = document.getElementById('nextBtn');
+      nextBtn.textContent = currentQuestion === questions.length - 1 ? '查看结果' : '下一步';
+      nextBtn.classList.toggle('active', answers[currentQuestion] !== undefined);
+
+      // 返回按钮
+      document.getElementById('quizBack').classList.toggle('visible', currentQuestion > 0);
+
+      // 动画
+      const card = document.getElementById('questionCard');
+      card.style.animation = 'none';
+      void card.offsetWidth;
+      card.style.animation = 'cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+    }
+
+    // 选择选项
+    function selectOption(index) {
+      answers[currentQuestion] = index;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.toggle('selected', i === index);
+      });
+      document.getElementById('nextBtn').classList.add('active');
+    }
+
+    // 下一步
+    function nextQuestion() {
+      if (answers[currentQuestion] === undefined) return;
+
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+        updateProgress();
+      } else {
+        submitToAI();
+      }
+    }
+
+    // 上一步
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+        updateProgress();
+      }
+    }
+
+    // 更新进度（动态显示问题数量）
+    function updateProgress() {
+      const percent = ((currentQuestion + 1) / questions.length) * 100;
+      document.getElementById('progressFill').style.width = percent + '%';
+      document.getElementById('progressText').textContent = `${currentQuestion + 1}/${questions.length}`;
+    }
+
+    // =====================
+    // 本地推荐算法（多维度匹配，保证覆盖全部组合）
+    // =====================
+    // 维度说明：
+    // q0: 空间, q1: 时间, q2: 预算, q3: 经验, q4: 互动
+    // q5: 性格, q6: 家庭, q7: 掉毛, q8: 目的, q9: 稀有度
+    // q10: 宠物类型, q11: 宠物大小, q12: 活跃时间
+    function calcPetScore(pet, ans) {
+      const ans11 = ans[11] ?? 1; // 宠物大小：0=小型, 1=中型, 2=大型, 3=无所谓
+      const ans12 = ans[12] ?? 2; // 活跃时间：0=白天, 1=夜晚, 2=无所谓
+
+      // 根据宠物类型分配大小属性（默认中型）
+      const petSize = pet.size ?? (
+        ['small', 'bird', 'fish', 'reptile'].includes(pet.type) ? 0 : // 小型
+        ['cat'].includes(pet.type) ? 1 : // 中型
+        ['dog'].includes(pet.type) ? 2 : 1 // 狗默认中型
+      );
+
+      // 根据宠物类型分配活跃时间（默认无所谓）
+      const petActive = pet.activeTime ?? (
+        ['bird'].includes(pet.type) ? 0 : // 白天
+        ['reptile'].includes(pet.type) ? 1 : 2 // 爬宠多为夜行
+      );
+
+      const dims = [
+        { petVal: pet.space,       userVal: ans[0], weight: 3 },  // 居住空间
+        { petVal: pet.time,        userVal: ans[1], weight: 3 },  // 时间
+        { petVal: pet.budget,      userVal: ans[2], weight: 2 },  // 预算
+        { petVal: pet.exp,         userVal: ans[3], weight: 2 },  // 经验
+        { petVal: pet.interact,    userVal: ans[4], weight: 2 },  // 互动
+        { petVal: pet.personality, userVal: ans[5], weight: 2 },  // 性格
+        { petVal: pet.family,      userVal: ans[6], weight: 1 },  // 家庭
+        { petVal: pet.fur,         userVal: ans[7], weight: 2 },  // 掉毛
+        { petVal: pet.purpose,     userVal: ans[8], weight: 1 },  // 目的
+        { petVal: pet.rare,        userVal: ans[9], weight: 1 },  // 稀有度
+        { petVal: petSize,         userVal: ans11, weight: 1.5 }, // 宠物大小
+        { petVal: petActive,       userVal: ans12, weight: 1 },   // 活跃时间
+      ];
+
+      // 宠物类型过滤（Q11 = ans[10]）
+      // 0=只要猫狗, 1=优先猫狗, 2=都可以, 3=异宠感兴趣
+      const typeBonus = {
+        0: { cat: 1.0, dog: 1.0, bird: 0.5, small: 0.5, reptile: 0.2, fish: 0.6 },
+        1: { cat: 1.0, dog: 1.0, bird: 0.7, small: 0.7, reptile: 0.4, fish: 0.7 },
+        2: { cat: 1.0, dog: 1.0, bird: 1.0, small: 1.0, reptile: 0.8, fish: 1.0 },
+        3: { cat: 0.8, dog: 0.8, bird: 1.0, small: 1.0, reptile: 1.2, fish: 1.0 },
+      };
+
+      let totalScore = 0;
+      let maxScore = 0;
+
+      for (const d of dims) {
+        const maxDiff = 3; // 选项最大差距
+        const diff = Math.abs(d.petVal - d.userVal);
+        const score = (maxDiff - diff) / maxDiff; // 0~1分
+        totalScore += score * d.weight;
+        maxScore += d.weight;
+      }
+
+      const rawScore = totalScore / maxScore; // 0~1
+      const typeMul = typeBonus[ans[10] ?? 2]?.[pet.type] ?? 1.0;
+      return rawScore * typeMul;
+    }
+
+    function recommendPets(answers) {
+      // 收集所有问题的答案，支持动态问题数量
+      const ansArr = [];
+      for (let i = 0; i < questions.length; i++) ansArr.push(answers[i] ?? 1);
+
+      const scored = PET_DATABASE.map(pet => ({
+        ...pet,
+        _score: calcPetScore(pet, ansArr)
+      }));
+
+      scored.sort((a, b) => b._score - a._score);
+
+      // 计算百分位匹配度（让第1名接近100%，有合理区分度）
+      const top3 = scored.slice(0, 3);
+      const maxRaw = top3[0]._score;
+      return top3.map((pet, i) => ({
+        ...pet,
+        matchScore: Math.round(100 * (pet._score / maxRaw) * (1 - i * 0.04)),
+        reason: pet.desc
+      }));
+    }
+
+    // =====================
+    // 提交问卷 → 本地算法推荐 → 展示结果
+    // =====================
+    function submitToAI() {
+      // 切换到加载页
+      document.getElementById('pageQuiz').style.display = 'none';
+      document.getElementById('pageLoading').style.display = 'flex';
+      document.getElementById('pageResult').style.display = 'none';
+
+      // 保存答案供后续报告使用（支持动态问题数量）
+      const ansArr = [];
+      for (let i = 0; i < questions.length; i++) ansArr.push(answers[i] ?? 1);
+      window.userAnswers = ansArr;
+
+      // 本地推荐算法（无需网络，瞬间完成）
+      const top3 = recommendPets(answers);
+      window.top3Results = top3;
+
+      // 模拟加载动画（1.2秒，增加仪式感）
+      setTimeout(() => {
+        showResult({ recommendations: top3 });
+      }, 1200);
+    }
+
+    // 显示结果
+    function showResult(result) {
+      document.getElementById('pageLoading').style.display = 'none';
+      document.getElementById('pageResult').style.display = 'flex';
+
+      const top = result.recommendations[0];
+
+      // 主推荐
+      document.getElementById('resultEmoji').textContent = top.emoji;
+      document.getElementById('resultName').textContent = top.name;
+      document.getElementById('resultScore').textContent = top.matchScore;
+      document.getElementById('resultReason').textContent = top.reason;
+
+      // TOP3列表
+      const top3Html = result.recommendations.slice(0, 3).map((pet, i) => `
+        <div class="top3-item">
+          <div class="top3-rank">${i + 1}</div>
+          <span class="top3-emoji">${pet.emoji}</span>
+          <div class="top3-info">
+            <div class="top3-name">${pet.name}</div>
+            <div class="top3-reason">${pet.reason}</div>
+          </div>
+          <div class="top3-score">${pet.matchScore}%</div>
+        </div>
+      `).join('');
+      document.getElementById('top3List').innerHTML = top3Html;
+    }
+
+    // 重新测试
+    function restartQuiz() {
+      startQuiz();
+    }
+
+    // 分享结果
+    function shareResult() {
+      const petName = document.getElementById('resultName').textContent;
+      const matchScore = document.getElementById('resultScore').textContent;
+      const emoji = document.getElementById('resultEmoji').textContent;
+      
+      const shareText = `🐾 我的命中注定宠物是${emoji}${petName}！
+
+匹配度：${matchScore}%
+
+✨ 用AI测一测你的专属宠物吧~`;
+
+      document.getElementById('shareText').value = shareText;
+      document.getElementById('shareModal').classList.add('show');
+    }
+
+    function closeShareModal() {
+      document.getElementById('shareModal').classList.remove('show');
+      showToast('文案已准备，长按复制哦~');
+    }
+
+    // 小红书商品链接
+    const XHS_LINKS = {
+      basic: 'https://xhslink.com/m/2GH9IQBjiGI',  // ¥0.99 详细分析报告
+      full: 'https://xhslink.com/m/6nbQG8AhlAx'     // ¥6.9 完整套装
+    };
+
+    // 解锁码列表（你需要发送给买家）
+    const VALID_CODES = {
+      'PET2025001': 'basic',
+      'PET2025002': 'basic',
+      'PET2025003': 'basic',
+      'PET2025004': 'basic',
+      'PET2025005': 'basic',
+      'FULL2025001': 'full',
+      'FULL2025002': 'full',
+      'FULL2025003': 'full'
+    };
+
+    function selectPay(type) {
+      selectedPay = type;
+      document.querySelectorAll('.pay-option').forEach(opt => opt.classList.remove('selected'));
+      document.getElementById(type === 'basic' ? 'payBasic' : 'payFull').classList.add('selected');
+      document.getElementById('payBtn').classList.add('active');
+    }
+
+    // 执行付费 - 跳转小红书
+    function doPay() {
+      if (!selectedPay) {
+        showToast('请先选择一个套餐');
+        return;
+      }
+      const link = XHS_LINKS[selectedPay];
+      window.location.href = link;
+    }
+
+    // 显示解锁码弹窗
+    function showUnlockModal() {
+      document.getElementById('unlockModal').classList.add('show');
+      document.getElementById('unlockCode').value = '';
+      document.getElementById('unlockError').style.display = 'none';
+    }
+
+    // 关闭解锁码弹窗
+    function closeUnlockModal() {
+      document.getElementById('unlockModal').classList.remove('show');
+    }
+
+    // 验证解锁码
+    function verifyUnlockCode() {
+      const code = document.getElementById('unlockCode').value.trim().toUpperCase();
+      if (!code) {
+        document.getElementById('unlockError').textContent = '请输入解锁码';
+        document.getElementById('unlockError').style.display = 'block';
+        return;
+      }
+      
+      if (VALID_CODES[code]) {
+        const unlockedType = VALID_CODES[code];
+        localStorage.setItem('pet_quiz_unlocked_' + unlockedType, code);
+        localStorage.setItem('pet_quiz_unlocked_time', new Date().toISOString());
+        
+        closeUnlockModal();
+        showToast('解锁成功！🎉');
+        
+        if (unlockedType === 'basic') {
+          generateDetailedReport();
+        } else {
+          generateFullReport();
+        }
+      } else {
+        document.getElementById('unlockError').textContent = '解锁码无效，请检查后重试';
+        document.getElementById('unlockError').style.display = 'block';
+      }
+    }
+
+    // 用户上传的照片
+    let userUploadedPhoto = null;
+
+    // 调用AI生成详细报告
+    async function generateDetailedReport() {
+      const top1Pet = window.top3Results?.[0] || { name: '萌宠', emoji: '🐾' };
+      
+      const loadingContent = `
+        <div class="result-card unlock-content" id="reportLoading">
+          <div class="result-card-title">📊 详细分析报告</div>
+          <div class="unlock-badge">🤖 <span>AI生成中...</span></div>
+          <div class="generating-wrapper">
+            <p class="generating-text">正在为「${top1Pet.emoji} ${top1Pet.name}」生成专属报告...</p>
+            <div class="generating-progress">
+              <div class="generating-dot"></div>
+              <div class="generating-dot"></div>
+              <div class="generating-dot"></div>
+            </div>
+            <p style="font-size: 13px; color: var(--text-tertiary); margin-top: 16px;">预计需要 10-20 秒</p>
+          </div>
+        </div>
+      `;
+      
+      const top3Card = document.querySelector('.top3-list')?.closest('.result-card');
+      if (top3Card) {
+        top3Card.insertAdjacentHTML('afterend', loadingContent);
+      }
+      
+      try {
+        const report = await generateDetailedReportFromAI();
+        showDetailedReport(report);
+      } catch (error) {
+        console.error('生成报告失败:', error);
+        showDetailedReport(getDetailedReportTemplate());
+      }
+    }
+
+    // 生成详细的分析报告
+    async function generateDetailedReportFromAI() {
+      const top3Data = window.top3Results || [];
+      const top1Pet = top3Data[0] || { name: '宠物', emoji: '🐾' };
+      
+      // 获取用户画像
+      const userAnswers = window.userAnswers || [];
+      const ua = userAnswers;
+      const housingLabels = ['单间/合租', '一居室', '两室或以上', '别墅/有大院子'];
+      const timeLabels = ['经常加班，经常不在家', '朝九晚六', '弹性工作', '自由职业/居家办公'];
+      const budgetLabels = ['300元以内/月', '300-800元/月', '800-1500元/月', '1500元以上/月'];
+      const expLabels = ['完全新手', '养过但经验不多', '有几年经验', '养宠老手'];
+      const interactLabels = ['各玩各的，偶尔撸', '每天陪玩', '随时互动像家人', '喜欢训练技能'];
+      const personalityLabels = ['安静乖巧', '活泼好动', '平衡就好'];
+      const familyLabels = ['独居', '有室友/伴侣', '有小孩', '有老人同住'];
+      const furLabels = ['完全不接受掉毛', '尽量少掉毛', '无所谓', '喜欢毛茸茸'];
+      const purposeLabels = ['陪伴解压', '观赏好看', '运动伙伴', '个性表达'];
+      const rareLabels = ['普通常见就好', '有点特别', '想要小众独特', '追求高端稀有'];
+      
+      const prompt = `你是一位专业宠物顾问，现在为用户生成一份真正有用的宠物适配报告。
+
+【用户详细画像】
+居住：${housingLabels[ua[0]] || '未知'}
+时间投入：${timeLabels[ua[1]] || '未知'}
+月预算：${budgetLabels[ua[2]] || '未知'}
+养宠经验：${expLabels[ua[3]] || '未知'}
+互动偏好：${interactLabels[ua[4]] || '未知'}
+性格偏好：${personalityLabels[ua[5]] || '未知'}
+家庭成员：${familyLabels[ua[6]] || '未知'}
+掉毛接受度：${furLabels[ua[7]] || '未知'}
+养宠目的：${purposeLabels[ua[8]] || '未知'}
+稀有度偏好：${rareLabels[ua[9]] || '未知'}
+
+【推荐结果】
+第1名：${top1Pet.emoji} ${top1Pet.name}（${top1Pet.matchScore}%匹配）
+第2名：${top3Data[1]?.emoji || ''} ${top3Data[1]?.name || ''}
+
+请生成一份超详细报告，必须JSON格式，每个字段都要有实质内容：
+{
+  "ownerType": "用户类型画像标签，如'都市白领派'、'佛系居家派'（5-8字）",
+  "personality": "基于用户回答分析其性格和生活方式（100-120字，要有洞察力，让用户感觉被看透）",
+  "compatibility": "为什么${top1Pet.name}是最适合ta的宠物（120-150字，结合用户具体情况分析，有对比）",
+  "petCharacter": "${top1Pet.name}的性格特点和优缺点（80-100字，真实不美化）",
+  "dailyCare": {
+    "feeding": "详细喂食方案：食物品牌推荐级别、每日次数、每次用量、禁忌食物（100-120字）",
+    "hygiene": "清洁护理：洗澡频率、梳毛、剪甲、牙齿护理具体操作（80-100字）",
+    "health": "健康管理：疫苗时间表、驱虫、体检频率、常见疾病早期症状（100-120字）",
+    "training": "行为训练：入门3个必学指令、训练方法、纠错技巧（80-100字）",
+    "environment": "生活环境：空间要求、温湿度、必备用品清单（60-80字）"
+  },
+  "budget": {
+    "startup": "首次购置清单（按类别列出具体物品和参考价格，合计预算）",
+    "monthly": "每月固定支出（食物、用品损耗、医疗备用金，分项列出）",
+    "annual_extra": "年度额外支出（体检、疫苗、驱虫、美容，分项列出）",
+    "total_year1": "第一年总预算估算"
+  },
+  "compatibility_score": {
+    "space": 当前空间的匹配分0-100,
+    "time": 时间投入的匹配分0-100,
+    "budget": 预算匹配分0-100,
+    "experience": 经验匹配分0-100
+  },
+  "warnings": ["新手最容易犯的5个错误，每条要具体可操作"],
+  "tips": ["资深铲屎官的6条实用建议，每条要有干货"],
+  "week1_plan": ["第1天任务", "第2-3天任务", "第4-5天任务", "第6-7天任务"],
+  "second_choice": "第2推荐${top3Data[1]?.name || ''}的简短点评，为什么没排第一（60-80字）"
+}`;
+
+      const response = await fetch('https://api.minimaxi.com/v1/text/chatcompletion_v2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${MINIMAX_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'abab6.5s-chat',
+          messages: [
+            { role: 'system', content: '你是经验丰富的专业宠物顾问，报告必须实用、具体、有洞察力，不能写废话套话。' },
+            { role: 'user', content: prompt }
+          ],
+          max_tokens: 2000,
+          temperature: 0.75
+        })
+      });
+
+      const data = await response.json();
+      const content = data.choices?.[0]?.message?.content || '';
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+      throw new Error('解析失败');
+    }
+
+    // 获取用户画像摘要
+    function getUserProfile() {
+      const answers = window.userAnswers || [];
+      return {
+        housing: answers[0] !== undefined ? ['单间/合租', '一居室', '两室或以上', '别墅/有大院子'][answers[0]] : '未知',
+        time: answers[1] !== undefined ? ['经常加班', '朝九晚六', '弹性工作', '自由职业/居家办公'][answers[1]] : '未知',
+        budget: answers[2] !== undefined ? ['300元以内', '300-800元', '800-1500元', '1500元以上'][answers[2]] : '未知',
+        experience: answers[3] !== undefined ? ['完全新手', '养过不多', '有几年经验', '养宠老手'][answers[3]] : '未知',
+        interaction: answers[4] !== undefined ? ['偶尔撸一下', '每天陪玩', '像家人一样', '喜欢训练'][answers[4]] : '未知',
+        personality: answers[5] !== undefined ? ['安静乖巧', '活泼好动', '平衡就好'][answers[5]] : '未知',
+        family: answers[6] !== undefined ? ['自己住', '有室友', '有小孩', '有老人'][answers[6]] : '未知',
+        fur: answers[7] !== undefined ? ['完全接受不了', '可以接受一点', '无所谓', '喜欢毛茸茸'][answers[7]] : '未知',
+        purpose: answers[8] !== undefined ? ['陪伴解压', '生活充实', '社交破冰', '个性表达'][answers[8]] : '未知',
+        rare: answers[9] !== undefined ? ['普通就好', '有点特别', '追求高端稀有'][answers[9]] : '未知',
+        preference: answers[10] !== undefined ? ['猫', '狗', '都可以', '对异宠感兴趣'][answers[10]] : '未知'
+      };
+    }
+
+    // 显示详细报告
+    function showDetailedReport(report) {
+      const top1Pet = window.top3Results?.[0] || { name: '萌宠', emoji: '🐾' };
+      const top2Pet = window.top3Results?.[1] || { name: '萌宠', emoji: '🐾' };
+
+      // 兼容新旧数据结构
+      const ownerType = report?.ownerType || '宠物达人派';
+      const personality = report?.personality || report?.personality || '正在分析...';
+      const compatibility = report?.compatibility || report?.whyMatch || '正在分析...';
+      const petCharacter = report?.petCharacter || '';
+      const feeding = report?.dailyCare?.feeding || report?.careGuide?.feeding || '';
+      const hygiene = report?.dailyCare?.hygiene || report?.careGuide?.daily || '';
+      const health = report?.dailyCare?.health || report?.careGuide?.health || '';
+      const training = report?.dailyCare?.training || report?.careGuide?.training || '';
+      const environment = report?.dailyCare?.environment || report?.careGuide?.environment || '';
+      const startup = report?.budget?.startup || report?.costBudget?.initial || '';
+      const monthly = report?.budget?.monthly || report?.costBudget?.monthly || '';
+      const annualExtra = report?.budget?.annual_extra || '';
+      const totalYear1 = report?.budget?.total_year1 || '';
+      const scores = report?.compatibility_score || {};
+      const warnings = report?.warnings || [];
+      const tips = report?.tips || [];
+      const week1 = report?.week1_plan || [];
+      const secondChoice = report?.second_choice || '';
+
+      // 生成匹配度分数条
+      const scoreBars = Object.entries({
+        '居住空间': scores.space || 80,
+        '时间投入': scores.time || 75,
+        '预算匹配': scores.budget || 85,
+        '经验匹配': scores.experience || 70
+      }).map(([label, val]) => `
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <span style="font-size:13px;color:var(--text-secondary);">${label}</span>
+            <span style="font-size:13px;font-weight:600;color:var(--primary);">${val}%</span>
+          </div>
+          <div style="height:6px;background:var(--bg-warm);border-radius:3px;overflow:hidden;">
+            <div style="height:100%;width:${val}%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:3px;transition:width 1s;"></div>
+          </div>
+        </div>
+      `).join('');
+
+      const reportHTML = `
+        <div class="result-card unlock-content" style="display:block;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div class="result-card-title" style="margin-bottom:0;">📊 专属分析报告</div>
+            <div class="unlock-badge" style="margin-bottom:0;">🎉 已解锁</div>
+          </div>
+
+          <!-- 用户标签 + 主推宠物 -->
+          <div style="background:linear-gradient(135deg,rgba(255,107,91,0.1) 0%,rgba(255,180,162,0.15) 100%);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;">
+            <div style="display:inline-block;background:var(--primary);color:white;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:12px;">✨ ${ownerType}</div>
+            <div style="font-size:52px;margin:8px 0;">${top1Pet.emoji}</div>
+            <div style="font-size:20px;font-weight:700;color:var(--text);">你的命中注定是 ${top1Pet.name}</div>
+            <div style="font-size:15px;color:var(--text-secondary);margin-top:6px;">匹配度 <strong style="color:var(--primary);font-size:22px;">${top1Pet.matchScore}%</strong></div>
+          </div>
+
+          <!-- 匹配度分析 -->
+          <div class="content-section">
+            <h4><span class="section-icon">📊</span> 匹配度详解</h4>
+            ${scoreBars}
+          </div>
+
+          <!-- 你的性格画像 -->
+          <div class="content-section highlight">
+            <h4><span class="section-icon">🧠</span> 你的性格画像</h4>
+            <p>${personality}</p>
+          </div>
+
+          <!-- 为什么适合 -->
+          <div class="content-section highlight">
+            <h4><span class="section-icon">💝</span> 为什么${top1Pet.name}是你的命中注定</h4>
+            <p>${compatibility}</p>
+          </div>
+
+          ${petCharacter ? `
+          <!-- 宠物真实性格 -->
+          <div class="content-section" style="background:linear-gradient(135deg,#F3F0FF 0%,#E8E4FF 100%);">
+            <h4><span class="section-icon">🐾</span> ${top1Pet.name}的真实性格</h4>
+            <p>${petCharacter}</p>
+          </div>` : ''}
+
+          <!-- 养护指南 -->
+          <div class="content-section">
+            <h4><span class="section-icon">🍖</span> 喂食方案</h4>
+            <p>${feeding}</p>
+          </div>
+          <div class="content-section">
+            <h4><span class="section-icon">🛁</span> 清洁护理</h4>
+            <p>${hygiene}</p>
+          </div>
+          <div class="content-section">
+            <h4><span class="section-icon">💊</span> 健康管理</h4>
+            <p>${health}</p>
+          </div>
+          <div class="content-section">
+            <h4><span class="section-icon">🎓</span> 训练入门</h4>
+            <p>${training}</p>
+          </div>
+          <div class="content-section">
+            <h4><span class="section-icon">🏠</span> 环境要求</h4>
+            <p>${environment}</p>
+          </div>
+
+          <!-- 费用预算 -->
+          <div class="content-section budget-section">
+            <h4><span class="section-icon">💰</span> 费用预算全览</h4>
+            ${startup ? `<div class="budget-detail"><div class="budget-label">🏷️ 首次购置清单</div><div class="budget-content">${startup}</div></div>` : ''}
+            ${monthly ? `<div class="budget-detail"><div class="budget-label">📆 每月固定支出</div><div class="budget-content">${monthly}</div></div>` : ''}
+            ${annualExtra ? `<div class="budget-detail"><div class="budget-label">📅 年度额外支出</div><div class="budget-content">${annualExtra}</div></div>` : ''}
+            ${totalYear1 ? `<div class="budget-detail" style="background:rgba(255,107,91,0.08);border:1px solid rgba(255,107,91,0.2);"><div class="budget-label" style="color:var(--primary);">💡 第一年总预算估算</div><div class="budget-content" style="font-weight:600;color:var(--primary);font-size:16px;">${totalYear1}</div></div>` : ''}
+          </div>
+
+          <!-- 新手警告 -->
+          ${warnings.length ? `
+          <div class="content-section warning-section">
+            <h4><span class="section-icon">⚠️</span> 新手必读警告</h4>
+            <ul>
+              ${warnings.map((w,i)=>`<li class="warning-item"><span class="item-icon">${i+1}</span>${w}</li>`).join('')}
+            </ul>
+          </div>` : ''}
+
+          <!-- 铲屎官建议 -->
+          ${tips.length ? `
+          <div class="content-section" style="background:linear-gradient(135deg,#F0FFF4 0%,#E8F5E9 100%);">
+            <h4><span class="section-icon">💡</span> 资深铲屎官干货</h4>
+            <ul>
+              ${tips.map(t=>`<li class="tip-item"><span class="item-icon">✨</span>${t}</li>`).join('')}
+            </ul>
+          </div>` : ''}
+
+          <!-- 第一周计划 -->
+          ${week1.length ? `
+          <div class="content-section timeline-section">
+            <h4><span class="section-icon">📅</span> 第一周上手计划</h4>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+              ${week1.map((item,i)=>`
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <div style="width:24px;height:24px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;">${i+1}</div>
+                  <p style="font-size:14px;color:var(--text);line-height:1.6;margin:0;">${item}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>` : ''}
+
+          <!-- 第二推荐点评 -->
+          ${secondChoice ? `
+          <div class="content-section" style="background:linear-gradient(135deg,#FFF8E1 0%,#FFF3CD 100%);">
+            <h4><span class="section-icon">🥈</span> ${top2Pet.emoji} ${top2Pet.name} 为什么排第二？</h4>
+            <p>${secondChoice}</p>
+          </div>` : ''}
+        </div>
+      `;
+      
+      const loadingEl = document.getElementById('reportLoading');
+      if (loadingEl) {
+        loadingEl.outerHTML = reportHTML;
+      }
+      
+      // 滚动到报告
+      setTimeout(() => {
+        document.querySelector('.unlock-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
+    // =====================
+    // ¥6.9 完整套装：包含 ¥0.99 全部 + 专属仪式感升级
+    // =====================
+    async function generateFullReport() {
+      const top1Pet = window.top3Results?.[0] || { name: '宠物', emoji: '🐾' };
+      const top2Pet = window.top3Results?.[1] || { name: '萌宠', emoji: '🐾' };
+      const top3Data = window.top3Results || [];
+      const userAnswers = window.userAnswers || [];
+
+      // ── 阶段1：先弹出生日收集（星座配对用） ──
+      showBirthdayModal(top1Pet, async (birthday) => {
+        // ── 阶段2：显示加载状态，同时调用 AI ──
+        const loadingHTML = `
+          <div class="result-card unlock-content full" id="fullReportLoading">
+            <div class="result-card-title">🎁 完整领养套装</div>
+            <div class="unlock-badge gold">🎉 <span>已解锁 · 生成中...</span></div>
+            <div style="text-align:center;padding:40px 0;">
+              <div style="font-size:48px;margin-bottom:16px;">✨</div>
+              <p style="font-size:15px;color:var(--text-secondary);line-height:1.6;">
+                正在为「${top1Pet.emoji} ${top1Pet.name}」<br>生成专属仪式感内容...
+              </p>
+              <div style="display:flex;justify-content:center;gap:6px;margin-top:20px;">
+                <div class="generating-dot"></div>
+                <div class="generating-dot"></div>
+                <div class="generating-dot"></div>
+              </div>
+            </div>
+          </div>`;
+
+        const basicContent = document.querySelector('.unlock-content:not(.full)');
+        if (basicContent) {
+          basicContent.insertAdjacentHTML('afterend', loadingHTML);
+        } else {
+          const top3Card = document.querySelector('.top3-list')?.closest('.result-card');
+          if (top3Card) top3Card.insertAdjacentHTML('afterend', loadingHTML);
+        }
+
+        // 滚动到加载区
+        document.getElementById('fullReportLoading')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        try {
+          // ── 调用 AI 生成专属内容 ──
+          const exclusive = await generateExclusiveContentFromAI(top1Pet, top2Pet, top3Data, userAnswers, birthday);
+          // ── 替换为完整套装 ──
+          showFullReport(top1Pet, top2Pet, exclusive, birthday);
+        } catch (err) {
+          console.error('专属内容生成失败，使用默认内容:', err);
+          showFullReport(top1Pet, top2Pet, getDefaultExclusive(top1Pet), birthday);
+        }
+      });
+    }
+
+    // 显示生日收集弹窗
+    function showBirthdayModal(top1Pet, onComplete) {
+      // 生成弹窗
+      const modal = document.createElement('div');
+      modal.id = 'birthdayModal';
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+      modal.innerHTML = `
+        <div style="background:white;border-radius:24px;padding:32px 28px;max-width:340px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+          <div style="font-size:56px;margin-bottom:12px;">🌟</div>
+          <h3 style="font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px;">解锁专属仪式感 ✨</h3>
+          <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:24px;">
+            输入生日，即可获得<br><strong style="color:var(--primary);">${top1Pet.emoji} ${top1Pet.name}</strong> 与你的星座配对报告
+          </p>
+          <input type="date" id="birthdayInput" style="
+            width:100%;padding:14px 16px;border:2px solid #FFD700;border-radius:14px;
+            font-size:15px;color:var(--text);background:#FFFBF0;outline:none;margin-bottom:16px;
+            box-sizing:border-box;" max="${new Date().toISOString().split('T')[0]}">
+          <div style="display:flex;gap:10px;">
+            <button onclick="document.getElementById('birthdayModal').remove()" style="
+              flex:1;padding:14px;border:1px solid #ddd;border-radius:14px;
+              background:white;font-size:14px;color:#999;cursor:pointer;">跳过</button>
+            <button id="birthdayConfirmBtn" style="
+              flex:2;padding:14px;border:none;border-radius:14px;
+              background:linear-gradient(135deg,#FFD700,#FFA500);
+              font-size:15px;font-weight:600;color:#2D2826;cursor:pointer;box-shadow:0 4px 12px rgba(255,165,0,0.3);">
+              解锁星座配对 💫
+            </button>
+          </div>
+        </div>`;
+      document.body.appendChild(modal);
+
+      document.getElementById('birthdayConfirmBtn').onclick = () => {
+        const val = document.getElementById('birthdayInput').value;
+        modal.remove();
+        onComplete(val || null);
+      };
+    }
+
+    // 调用 AI 生成专属内容
+    async function generateExclusiveContentFromAI(top1Pet, top2Pet, top3Data, userAnswers, birthday) {
+      // 计算星座（正确逻辑）
+      let userZodiac = null;
+      if (birthday) {
+        const d = new Date(birthday);
+        const m = d.getMonth() + 1; // 1-12月
+        const day = d.getDate();
+        // 星座顺序：魔蝎、水瓶、双鱼、白羊、金牛、双子、巨蟹、狮子、处女、天秤、天蝎、射手
+        // cutoff：每月多少号之前是上一个星座
+        const zodiacs = ['魔蝎','水瓶','双鱼','白羊','金牛','双子','巨蟹','狮子','处女','天秤','天蝎','射手'];
+        const cutoff = [19,18,20,19,20,21,22,22,22,22,21,20];
+        // 正确公式：m-1 是基础索引，如果 day > cutoff[m-1] 则+1跳到下个星座
+        const idx = (m - 1) + (day > cutoff[m - 1] ? 1 : 0);
+        userZodiac = zodiacs[idx % 12];
+      }
+
+      // 宠物类型对应的星座
+      const petZodiacs = {
+        cat: ['温柔神秘型','独立自信型','慵懒治愈型'],
+        dog: ['忠诚热情型','活泼阳光型','暖心陪伴型'],
+        bird: ['自由向往型','聪明灵动型','活泼欢快型'],
+        small: ['软萌治愈型','安静乖巧型','活泼好奇型'],
+        reptile: ['个性独特型','沉稳神秘型','酷感十足型'],
+        fish: ['宁静优雅型','梦幻浪漫型','平和自在型']
+      };
+      const zodiacPool = petZodiacs[top1Pet.type] || petZodiacs.cat;
+      const petZodiac = zodiacPool[Math.floor(Math.random() * zodiacPool.length)];
+
+      const prompt = `你是一位宠物仪式感内容创作者，为用户生成一份专属领养仪式感报告。
+
+【用户信息】
+生日：${birthday ? `${birthday}（${userZodiac}座）` : '未提供，跳过星座部分'}
+第1推荐：${top1Pet.emoji} ${top1Pet.name}
+第2推荐：${top2Pet.emoji} ${top2Pet.name}
+
+请生成以下专属内容（必须JSON格式）：
+{
+  "declaration": "一段专属领养宣言，30-50字，有仪式感，第一人称，写得像给${top1Pet.name}的一封承诺书，温馨有爱不矫情",
+  "petCharacter": "${top1Pet.name}的性格关键词标签，3-4个，用逗号分隔，如：粘人、话痨、傲娇、温柔",
+  "compatibilityScore": 85-98之间的随机整数,
+  "compatibilityText": "星座配对简述，30-50字，结合${userZodiac || '宠物'}和${petZodiac}的性格特征写一段有趣的配对解读",
+  "milestones": [
+    {"time":"相遇第1天","event":"带${top1Pet.name}回家，先让它在新环境中自由探索，不要急于抱它"},
+    {"time":"第3天","event":"建立第一次喂食互动，用零食建立信任感"},
+    {"time":"第1周","event":"完成基础清洁准备，购买好必需用品"},
+    {"time":"第1个月","event":"预约第一针疫苗，建立健康档案"},
+    {"time":"第3个月","event":"${top1Pet.name}完全适应，成为家中不可或缺的一员"}
+  ]
+}`;
+
+      const response = await fetch('https://api.minimaxi.com/v1/text/chatcompletion_v2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${MINIMAX_API_KEY}` },
+        body: JSON.stringify({
+          model: 'abab6.5s-chat',
+          messages: [
+            { role: 'system', content: '你是专业宠物内容创作者，输出必须是合法JSON，内容有创意、有温度、不套路。' },
+            { role: 'user', content: prompt }
+          ],
+          max_tokens: 1200,
+          temperature: 0.8
+        })
+      });
+
+      const data = await response.json();
+      const content = data.choices?.[0]?.message?.content || '';
+      const match = content.match(/\{[\s\S]*\}/);
+      if (match) return JSON.parse(match[0]);
+      throw new Error('解析失败');
+    }
+
+    // 获取默认专属内容（AI失败时备用）
+    function getDefaultExclusive(top1Pet) {
+      return {
+        declaration: `从今天起，我将是你唯一的家人。不离不弃，细心照料，让你的一生都有我的陪伴。`,
+        petCharacter: '温柔, 粘人, 治愈, 活泼',
+        compatibilityScore: 92,
+        compatibilityText: `${top1Pet.name}与你的缘分天定，命中注定的相遇就是最好的开始。`,
+        milestones: [
+          { time: '相遇第1天', event: '带它回家，先让它自由探索新环境' },
+          { time: '第3天', event: '建立第一次喂食互动，用零食建立信任' },
+          { time: '第1周', event: '完成基础清洁准备，购买必需用品' },
+          { time: '第1个月', event: '预约第一针疫苗，建立健康档案' },
+          { time: '第3个月', event: '完全适应，成为家中不可或缺的一员' }
+        ]
+      };
+    }
+
+    // 显示完整套装（含 ¥0.99 全部内容 + 专属内容）
+    function showFullReport(top1Pet, top2Pet, exclusive, birthday) {
+      const ua = window.userAnswers || [];
+      const housingLabels = ['单间/合租', '一居室', '两室或以上', '别墅/有大院子'];
+      const timeLabels = ['经常加班', '朝九晚六', '弹性工作', '自由职业/居家办公'];
+      const budgetLabels = ['300元以内', '300-800元', '800-1500元', '1500元以上'];
+      const expLabels = ['完全新手', '养过但不多', '有几年经验', '养宠老手'];
+      const furLabels = ['完全接受不了', '可以接受一点', '无所谓', '喜欢毛茸茸'];
+      const purposeLabels = ['陪伴解压', '观赏好看', '运动伙伴', '个性表达'];
+
+      // 星座计算（正确逻辑）
+      let userZodiac = null, zodiacEmoji = '✨';
+      if (birthday) {
+        const d = new Date(birthday);
+        const m = d.getMonth() + 1, day = d.getDate();
+        const zodiacs = [
+          { name:'魔蝎', emoji:'♑'},{name:'水瓶',emoji:'♒'},{name:'双鱼',emoji:'♓'},
+          {name:'白羊',emoji:'♈'},{name:'金牛',emoji:'♉'},{name:'双子',emoji:'♊'},
+          {name:'巨蟹',emoji:'♋'},{name:'狮子',emoji:'♌'},{name:'处女',emoji:'♍'},
+          {name:'天秤',emoji:'♎'},{name:'天蝎',emoji:'♏'},{name:'射手',emoji:'♐'}
+        ];
+        const cutoff = [19,18,20,19,20,21,22,22,22,22,21,20];
+        // 正确公式：m-1 是基础索引，如果 day > cutoff[m-1] 则+1跳到下个星座
+        const idx = (m - 1) + (day > cutoff[m - 1] ? 1 : 0);
+        const z = zodiacs[idx % 12];
+        userZodiac = z.name + '座';
+        zodiacEmoji = z.emoji;
+      }
+
+      // 宠物性格标签
+      const charTags = exclusive.petCharacter?.split(/[,，]/).filter(Boolean) || ['温柔','粘人'];
+      const certTags = charTags.slice(0, 3).map(t => `<span class="cert-v2-tag">${t.trim()}</span>`).join('');
+
+      // 证书编号
+      const certSN = `PA-${Date.now().toString(36).toUpperCase().slice(-6)}`;
+
+      // 宠物图鉴数据
+      const atlasStats = [
+        { label: '粘人指数', val: top1Pet.interact >= 2 ? 85 : top1Pet.interact === 1 ? 65 : 40 },
+        { label: '活力指数', val: top1Pet.personality === 1 ? 90 : top1Pet.personality === 2 ? 70 : 45 },
+        { label: '护理难度', val: top1Pet.fur >= 2 ? 80 : top1Pet.fur === 1 ? 55 : 30 },
+        { label: '适合新手', val: top1Pet.exp === 0 ? 95 : top1Pet.exp === 1 ? 75 : 55 }
+      ];
+
+      // ── 完整HTML ──
+      const fullHTML = `
+        <div class="result-card unlock-content full" id="fullReportLoading" style="display:block;">
+          <!-- 套装标题 -->
+          <div class="full-report-hero">
+            <div class="full-hero-tag">🎁 完整领养套装</div>
+            <span class="full-hero-emoji">${top1Pet.emoji}</span>
+            <div class="full-hero-name"><span>${top1Pet.name}</span></div>
+            <div class="full-hero-sub">${top1Pet.matchScore}% 命中注定 · ${new Date().toLocaleDateString('zh-CN')}</div>
+          </div>
+
+          <!-- ═══ ¥0.99 全部内容（完整复刻）═══ -->
+
+          <!-- 用户标签 + 主推宠物 -->
+          <div style="background:linear-gradient(135deg,rgba(255,107,91,0.1) 0%,rgba(255,180,162,0.15) 100%);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;">
+            <div style="display:inline-block;background:var(--primary);color:white;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:12px;">
+              ✨ ${exclusive.declaration ? '命中注定' : '宠物达人派'}
+            </div>
+            <div style="font-size:52px;margin:8px 0;">${top1Pet.emoji}</div>
+            <div style="font-size:20px;font-weight:700;color:var(--text);">你的命中注定是 ${top1Pet.name}</div>
+            <div style="font-size:15px;color:var(--text-secondary);margin-top:6px;">
+              匹配度 <strong style="color:var(--primary);font-size:22px;">${top1Pet.matchScore}%</strong>
+            </div>
+          </div>
+
+          <!-- 你的性格画像 -->
+          <div class="content-section highlight">
+            <h4><span class="section-icon">🧠</span> 你的性格画像</h4>
+            <p>你是一个追求生活品质、渴望温暖陪伴的人。住在${housingLabels[ua[0]] || '温暖的小窝'}，过着${timeLabels[ua[1]] || '规律的'}生活，月养宠预算${budgetLabels[ua[2]] || '适中'}。${ua[3] === 0 ? '虽然是新手，但你对养宠物充满热情和期待。' : '有一定养宠经验，对未来和新伙伴做好了准备。'}喜欢${purposeLabels[ua[8]] || '温馨陪伴'}的你，${furLabels[ua[7]] === '喜欢毛茸茸' ? '最爱毛茸茸的触感' : '对宠物掉毛有一定的心理准备'}，相信一段好的陪伴关系会让生活更加完整。</p>
+          </div>
+
+          <!-- 为什么适合 -->
+          <div class="content-section highlight">
+            <h4><span class="section-icon">💝</span> 为什么${top1Pet.name}是你的命中注定</h4>
+            <p>${top1Pet.desc || '根据你的回答，你的生活方式、作息时间和居住环境都非常适合养一只' + top1Pet.name + '。它不需要太多户外运动，能适应你的生活节奏，同时又能给你带来恰到好处的陪伴和温暖。'}</p>
+          </div>
+
+          <!-- 养护指南 -->
+          <div class="content-section">
+            <h4><span class="section-icon">🍖</span> 喂食方案</h4>
+            <p>选择正规品牌宠粮，每日定时喂食${top1Pet.type === 'cat' ? '2-3次' : top1Pet.type === 'dog' ? '2次' : '按种类习性'}。${top1Pet.fur >= 2 ? '换毛季适当增加营养补充。' : '保持饮水充足。'}避免喂食人类食物，尤其${top1Pet.type === 'cat' ? '巧克力、洋葱、大蒜' : '巧克力、葡萄、洋葱'}等禁忌食物。</p>
+          </div>
+          <div class="content-section">
+            <h4><span class="section-icon">🛁</span> 清洁护理</h4>
+            <p>${top1Pet.fur >= 2 ? '每天梳毛一次，换毛季早晚各一次。' : top1Pet.fur === 1 ? '每周梳毛2-3次。' : '短毛宠物护理简单，每周梳理一次即可。'}定期洗澡（${top1Pet.type === 'cat' ? '猫咪一般不需要频繁洗澡' : '夏季每月1次，冬季每2-3月1次'}），每月检查并修剪指甲，${top1Pet.type === 'cat' || top1Pet.type === 'dog' ? '每周清洁牙齿或使用口腔护理零食。' : '保持生活环境干燥清洁。'}</p>
+          </div>
+          <div class="content-section">
+            <h4><span class="section-icon">💊</span> 健康管理</h4>
+            <p>幼年期：完成基础疫苗（${top1Pet.type === 'cat' ? '猫三联' : top1Pet.type === 'dog' ? '犬八联/狂犬' : '按种类接种'}）。成年后每年加强免疫。定期驱虫（体内3月/次，体外1月/次）。每年体检${ua[3] === 0 ? '尤其重要，可以早期发现问题' : '一次'}。注意观察食欲、精神状态和排泄情况。</p>
+          </div>
+          <div class="content-section">
+            <h4><span class="section-icon">🎓</span> 训练入门</h4>
+            <p>${top1Pet.type === 'cat' ? '猫咪以奖励为主训练，使用零食正向强化。从"过来"和"坐下"开始，每次5-10分钟，保持耐心。' : top1Pet.type === 'dog' ? '狗狗训练以正向奖励为主。从"坐下""等待""过来"三个基础指令开始，每次10分钟左右。保持一致性和耐心。' : '新成员到家先给它1-2周适应期，再慢慢开始基础互动和训练。'}</p>
+          </div>
+          <div class="content-section">
+            <h4><span class="section-icon">🏠</span> 环境要求</h4>
+            <p>${top1Pet.type === 'cat' ? '准备猫抓板、猫爬架，满足磨爪需求。封闭阳台防止坠楼。' : top1Pet.type === 'dog' ? '每天固定遛狗时间，准备舒适狗窝。训练定点上厕所。' : '根据种类准备合适的生活空间，注意温湿度控制。'}保持通风干燥，温度适宜（${top1Pet.type === 'small' ? '20-26℃为宜' : '18-28℃舒适'}）。</p>
+          </div>
+
+          <!-- 费用预算 -->
+          <div class="content-section budget-section">
+            <h4><span class="section-icon">💰</span> 费用预算全览</h4>
+            <div class="budget-detail">
+              <div class="budget-label">🏷️ 首次购置清单</div>
+              <div class="budget-content">宠粮/窝笼：${top1Pet.budget >= 2 ? '800-1500元' : top1Pet.budget === 1 ? '400-800元' : '200-400元'} | 疫苗首免：200-400元 | 日常用品：200-400元</div>
+            </div>
+            <div class="budget-detail">
+              <div class="budget-label">📆 每月固定支出</div>
+              <div class="budget-content">${budgetLabels[ua[2]] || '约400-800元/月'}（食物为主+损耗品）</div>
+            </div>
+            <div class="budget-detail">
+              <div class="budget-label">📅 年度额外支出</div>
+              <div class="budget-content">疫苗加强：200-400元 | 体检：200-500元 | 驱虫：300-600元</div>
+            </div>
+            <div class="budget-detail" style="background:rgba(255,107,91,0.08);border:1px solid rgba(255,107,91,0.2);">
+              <div class="budget-label" style="color:var(--primary);">💡 第一年总预算</div>
+              <div class="budget-content" style="font-weight:600;color:var(--primary);font-size:16px;">约 ${top1Pet.budget >= 2 ? '8000-15000' : top1Pet.budget === 1 ? '5000-10000' : '3000-6000'} 元</div>
+            </div>
+          </div>
+
+          <!-- 新手警告 -->
+          <div class="content-section warning-section">
+            <h4><span class="section-icon">⚠️</span> 新手必读警告</h4>
+            <ul>
+              <li class="warning-item"><span class="item-icon">1</span>不要给宠物喂食人类食物，很多食物对它们有毒</li>
+              <li class="warning-item"><span class="item-icon">2</span>不要在未打完疫苗前带出门或洗澡</li>
+              <li class="warning-item"><span class="item-icon">3</span>不要用惩罚的方式训练，它只会害怕不会学习</li>
+              <li class="warning-item"><span class="item-icon">4</span>不要忽视它的异常行为，发现问题及时就医</li>
+              <li class="warning-item"><span class="item-icon">5</span>不要一时冲动购买，养宠物是十几年甚至二十年的承诺</li>
+            </ul>
+          </div>
+
+          <!-- 铲屎官建议 -->
+          <div class="content-section" style="background:linear-gradient(135deg,#F0FFF4 0%,#E8F5E9 100%);">
+            <h4><span class="section-icon">💡</span> 资深铲屎官干货</h4>
+            <ul>
+              <li class="tip-item"><span class="item-icon">✨</span>选宠物就像选家人，适合比喜欢更重要</li>
+              <li class="tip-item"><span class="item-icon">✨</span>养宠预算要留有余地，医疗费往往是最大的开支</li>
+              <li class="tip-item"><span class="item-icon">✨</span>多看专业资料，少看营销号，建立科学养宠观</li>
+              <li class="tip-item"><span class="item-icon">✨</span>给它取个名字，多叫它，它真的会记住</li>
+              <li class="tip-item"><span class="item-icon">✨</span>准备好相机或手机，记录每一个成长瞬间</li>
+              <li class="tip-item"><span class="item-icon">✨</span>加入同城宠友群，有问题随时有人帮忙</li>
+            </ul>
+          </div>
+
+          <!-- 第一周计划 -->
+          <div class="content-section timeline-section">
+            <h4><span class="section-icon">📅</span> 第一周上手计划</h4>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:24px;height:24px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;">1</div>
+                <p style="font-size:14px;color:var(--text);line-height:1.6;margin:0;">第1天：让它在新环境中自由探索，准备好食物、水和猫砂/尿垫</p>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:24px;height:24px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;">2</div>
+                <p style="font-size:14px;color:var(--text);line-height:1.6;margin:0;">第2-3天：保持安静，用零食主动接近，但不要强抱，让它主动靠近你</p>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:24px;height:24px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;">3</div>
+                <p style="font-size:14px;color:var(--text);line-height:1.6;margin:0;">第4-5天：开始建立固定喂食和作息规律，尝试简单互动</p>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="width:24px;height:24px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;">4</div>
+                <p style="font-size:14px;color:var(--text);line-height:1.6;margin:0;">第6-7天：开始日常护理（梳毛、清洁），预约兽医建立健康档案</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══ ¥6.9 专属升级内容 ═══ -->
+
+          <!-- 专属领养宣言 -->
+          ${exclusive.declaration ? `
+          <div class="declaration-card">
+            <div class="declaration-title">📜 专属领养宣言</div>
+            <div class="declaration-text">${exclusive.declaration}</div>
+            <div class="declaration-sig">— 致 ${top1Pet.emoji} ${top1Pet.name}</div>
+          </div>` : ''}
+
+          <!-- 宠物图鉴卡片 -->
+          <div class="pet-atlas-card">
+            <div class="pet-atlas-title">📖 宠物图鉴</div>
+            <div style="text-align:center;margin-bottom:14px;">
+              <span style="font-size:56px;filter:drop-shadow(0 4px 8px rgba(255,215,0,0.4));">${top1Pet.emoji}</span>
+              <div style="font-size:20px;font-weight:700;color:white;margin-top:8px;">${top1Pet.name}</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px;">Pet Atlas · 图鉴档案</div>
+            </div>
+            <div class="pet-atlas-grid">
+              ${atlasStats.map(s => `
+                <div class="atlas-stat">
+                  <div class="atlas-stat-label">${s.label}</div>
+                  <div class="atlas-stat-value">${s.val}%</div>
+                  <div class="atlas-stat-bar"><div class="atlas-stat-bar-fill" style="width:${s.val}%;"></div></div>
+                </div>`).join('')}
+            </div>
+            <div class="atlas-tags">
+              ${charTags.map(t => `<span class="atlas-tag">${t.trim()}</span>`).join('')}
+            </div>
+          </div>
+
+          <!-- 星座配对（仅当有生日时显示） -->
+          ${userZodiac ? `
+          <div class="compatibility-zodiac">
+            <div class="zodiac-title">CONSTELLATION</div>
+            <div class="zodiac-pair">
+              <div class="zodiac-item">
+                <span class="zodiac-emoji">${zodiacEmoji}</span>
+                <div class="zodiac-name">${userZodiac}</div>
+              </div>
+              <div class="zodiac-heart">❤️</div>
+              <div class="zodiac-item">
+                <span class="zodiac-emoji">${top1Pet.emoji}</span>
+                <div class="zodiac-name">${top1Pet.name}</div>
+              </div>
+            </div>
+            <div class="zodiac-score">${exclusive.compatibilityScore || 92}%</div>
+            <div class="zodiac-desc">${exclusive.compatibilityText || '命中注定的相遇，是最好的开始'}</div>
+          </div>` : ''}
+
+          <!-- 养宠里程碑 -->
+          <div class="milestone-card">
+            <div class="milestone-title">📅 养宠里程碑</div>
+            <div class="milestone-list">
+              ${(exclusive.milestones || []).map(m => `
+                <div class="milestone-item">
+                  <div class="milestone-time">${m.time}</div>
+                  <div class="milestone-event">${m.event}</div>
+                </div>`).join('')}
+            </div>
+          </div>
+
+          <!-- 领取电子宠物 -->
+          <div class="content-section" style="background:linear-gradient(135deg,#FFF8F0,#FFE8D6);border:2px solid #FFB5A7;">
+            <h4 style="justify-content:center;color:#D4443A;"><span class="section-icon">🎁</span> 领取你的电子宠物</h4>
+            <div style="text-align:center;margin:16px 0;">
+              <div style="font-size:48px;margin-bottom:8px;">${top1Pet.emoji}</div>
+              <div style="font-size:20px;font-weight:600;color:#2D2826;">${top1Pet.name}</div>
+              <div style="font-size:13px;color:#888;margin-top:4px;">AI识别 · 命中注定的小家伙</div>
+            </div>
+            <div id="petCardPlaceholder" style="
+              background:linear-gradient(145deg,#FFFFFF,#FFF5EE);
+              border-radius:20px;
+              padding:40px 20px;
+              text-align:center;
+              border:2px dashed #FFB5A7;
+              margin-bottom:16px;
+            ">
+              <div style="font-size:40px;margin-bottom:12px;">✨</div>
+              <div style="color:#666;font-size:14px;">点击下方按钮</div>
+              <div style="color:#D4443A;font-size:15px;font-weight:600;margin-top:4px;">领取你的专属电子宠物</div>
+            </div>
+            <button id="claimPetBtn" onclick="claimElectronicPet()" style="
+              width:100%;padding:18px;
+              background:linear-gradient(135deg,#FF7F6B,#FF5A4A);
+              color:white;border:none;border-radius:16px;
+              font-size:16px;font-weight:700;
+              box-shadow:0 6px 20px rgba(255,127,107,0.4);
+              cursor:pointer;">
+              🐾 立即领取 ${top1Pet.name}
+            </button>
+            <div id="petCardResult" style="display:none;margin-top:16px;">
+              <div style="
+                background:linear-gradient(145deg,#FFFFFF,#FFF8F0);
+                border-radius:20px;
+                padding:20px;
+                border:3px solid #FFD700;
+                box-shadow:0 8px 24px rgba(255,215,0,0.3);
+              ">
+                <img id="petCardImg" style="width:100%;border-radius:14px;display:block;">
+                <div style="
+                  text-align:center;
+                  margin-top:16px;
+                  padding:12px;
+                  background:linear-gradient(135deg,#FFF8F0,#FFE8D6);
+                  border-radius:12px;
+                ">
+                  <div style="font-size:24px;margin-bottom:4px;">🎉</div>
+                  <div style="font-size:16px;font-weight:700;color:#2D2826;">恭喜获得 ${top1Pet.name}！</div>
+                  <div style="font-size:12px;color:#888;margin-top:4px;">✨ 你的命中注定的小家伙 ✨</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 精美电子证书 v2 -->
+          <div class="cert-v2">
+            <div class="cert-v2-border">
+              <div class="cert-corner cert-corner-tl"></div>
+              <div class="cert-corner cert-corner-tr"></div>
+              <div class="cert-corner cert-corner-bl"></div>
+              <div class="cert-corner cert-corner-br"></div>
+              <div class="cert-v2-watermark">PAW</div>
+
+              <div class="cert-v2-header">
+                <div class="cert-v2-logo">🐾</div>
+                <div class="cert-v2-title">ADOPTION CERTIFICATE</div>
+                <div class="cert-v2-divider"><span>✨</span></div>
+              </div>
+
+              <div class="cert-v2-body">
+                <div class="cert-v2-certify">This certifies that</div>
+                <div class="cert-v2-owner">亲爱的铲屎官</div>
+                <div class="cert-v2-adopted">has officially adopted</div>
+                <span class="cert-v2-pet-emoji">${top1Pet.emoji}</span>
+                <div class="cert-v2-pet-name">${top1Pet.name}</div>
+                <div class="cert-v2-tags">${certTags}</div>
+              </div>
+
+              <!-- 印章 -->
+              <div class="cert-v2-seal">
+                <div class="cert-v2-seal-text">官方<br>认证</div>
+              </div>
+
+              <div class="cert-v2-footer">
+                <div class="cert-v2-date-block">
+                  <div class="cert-v2-date-label">DATE</div>
+                  <div class="cert-v2-date-val">${new Date().toLocaleDateString('zh-CN', {year:'numeric',month:'2-digit',day:'2-digit'})}</div>
+                </div>
+                ${userZodiac ? `<div style="text-align:center;"><div style="font-size:10px;color:#999;letter-spacing:1px;">LUCKY STAR</div><div style="font-size:18px;margin-top:2px;">${zodiacEmoji}</div></div>` : ''}
+                <div class="cert-v2-sn">
+                  <div class="cert-v2-sn-label">CERT NO.</div>
+                  <div class="cert-v2-sn-val">${certSN}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 保存按钮 -->
+          <div class="full-save-btns">
+            <button class="save-btn-primary" onclick="saveCertificate()">
+              💾 保存电子证书
+            </button>
+            <button class="save-btn-secondary" onclick="shareResult()">
+              📤 分享到小红书
+            </button>
+          </div>
+        </div>`;
+
+      const loadingEl = document.getElementById('fullReportLoading');
+      if (loadingEl) {
+        loadingEl.outerHTML = fullHTML;
+      }
+
+      setTimeout(() => {
+        document.querySelector('.unlock-content.full')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
+    // 处理照片上传
+    function handlePhotoUpload(input) {
+      const file = input.files[0];
+      if (!file) return;
+      
+      // 检查文件大小（限制5MB）
+      if (file.size > 5 * 1024 * 1024) {
+        showToast('图片太大，请选择5MB以下的图片');
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        userUploadedPhoto = e.target.result;
+        document.getElementById('uploadedPreview').src = userUploadedPhoto;
+        document.getElementById('uploadedPreview').style.display = 'block';
+        document.getElementById('uploadPlaceholder').style.display = 'none';
+        document.getElementById('generatePhotoBtn').disabled = false;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 处理照片上传（¥0.99 旧版兼容）
+    function handlePhotoUpload(input) {
+      const file = input.files[0];
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { showToast('图片太大，请选择5MB以下'); return; }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        userUploadedPhoto = e.target.result;
+        const preview = document.getElementById('uploadedPreview');
+        if (preview) { preview.src = userUploadedPhoto; preview.style.display = 'block'; }
+        const ph = document.getElementById('uploadPlaceholder');
+        if (ph) ph.style.display = 'none';
+        const btn = document.getElementById('generatePhotoBtn');
+        if (btn) btn.disabled = false;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 处理照片上传 v2（¥6.9 完整套装）
+    function handlePhotoUploadV2(input) {
+      const file = input.files[0];
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { showToast('图片太大，请选择5MB以下'); return; }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        userUploadedPhoto = e.target.result;
+        const preview = document.getElementById('uploadedPreview2');
+        if (preview) { preview.src = userUploadedPhoto; preview.style.display = 'block'; }
+        const ph = document.getElementById('uploadPlaceholder2');
+        if (ph) ph.style.display = 'none';
+        const btn = document.getElementById('generatePhotoBtn2');
+        if (btn) { btn.disabled = false; btn.style.cursor = 'pointer'; }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 生成AI合照（复用逻辑）
+    async function generateAIPhoto() {
+      await generatePhotoCore('uploadedPreview', 'uploadPlaceholder', 'generatePhotoBtn', 'photoInput');
+    }
+
+    // 生成AI合照 v2（¥6.9）
+    async function generateAIPhotoV2() {
+      await generatePhotoCore('uploadedPreview2', 'uploadPlaceholder2', 'generatePhotoBtn2', 'photoInput2');
+    }
+
+    // 领取电子宠物（方案A - 纯文生图）
+    async function claimElectronicPet() {
+      const btn = document.getElementById('claimPetBtn');
+      const placeholder = document.getElementById('petCardPlaceholder');
+      const resultEl = document.getElementById('petCardResult');
+      const petImg = document.getElementById('petCardImg');
+
+      if (btn) { btn.disabled = true; btn.textContent = '⏳ AI正在生成中...'; }
+      if (placeholder) { placeholder.innerHTML = '<div style="font-size:32px;margin-bottom:8px;">🎨</div><div style="color:#666;">正在为你创作...</div><div style="color:#FF7F6B;font-weight:600;margin-top:8px;">请稍候~</div>'; }
+
+      const top1Pet = window.top3Results?.[0] || { name: '小可爱', emoji: '🐾', type: 'cat' };
+
+      // 构建精准可爱提示词
+      const petPrompts = {
+        cat: `An adorable fluffy ${top1Pet.name || 'cat'} with big expressive eyes, sitting on a soft plush cushion, warm golden hour sunlight, photorealistic, incredibly cute expression, fluffy fur texture, shallow depth of field, professional pet photography, high quality`,
+        dog: `An adorable ${top1Pet.name || 'dog'} with puppy eyes and a happy expression, sitting in a cozy spot, warm natural lighting, photorealistic, incredibly cute and huggable, soft fur texture, professional pet photography`,
+        bird: `A beautiful colorful ${top1Pet.name || 'parrot'} with vibrant feathers, perched on a natural branch, warm soft lighting, photorealistic, cute and friendly appearance, detailed feather texture`,
+        small: `A tiny adorable ${top1Pet.name || 'hamster'} with big round eyes, sitting on soft bedding, warm cozy lighting, photorealistic, incredibly cute round body, soft fur detail`,
+        reptile: `A cute ${top1Pet.name || 'gecko'} with beautiful pattern, resting on natural rocks, warm soft lighting, photorealistic, friendly appearance, detailed scales`,
+        fish: `A beautiful ${top1Pet.name || 'goldfish'} with flowing fins, swimming in crystal clear water, soft underwater lighting, photorealistic, elegant and graceful, dreamy aquarium atmosphere`
+      };
+      const prompt = petPrompts[top1Pet.type] || petPrompts.cat;
+
+      try {
+        const response = await fetch('https://api.minimaxi.com/v1/image_generation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${MINIMAX_API_KEY}` },
+          body: JSON.stringify({
+            model: 'image-01',
+            prompt: prompt,
+            aspect_ratio: '1:1',
+            response_format: 'url',
+            n: 1
+          })
+        });
+        const data = await response.json();
+        console.log('电子宠物生成响应:', JSON.stringify(data, null, 2));
+
+        let imgUrl = data?.data?.image_urls?.[0];
+
+        if (imgUrl) {
+          // 隐藏placeholder，显示结果
+          if (placeholder) placeholder.style.display = 'none';
+          if (resultEl) resultEl.style.display = 'block';
+          if (petImg) petImg.src = imgUrl;
+          if (btn) { btn.textContent = '✅ 已领取'; btn.style.background = 'linear-gradient(135deg,#4CAF50,#45a049)'; }
+          showToast('🎉 恭喜！你的电子宠物已到账！');
+        } else {
+          throw new Error('图片生成失败: ' + JSON.stringify(data).substring(0, 200));
+        }
+      } catch (error) {
+        console.error('领取电子宠物失败:', error);
+        if (placeholder) {
+          placeholder.innerHTML = '<div style="font-size:32px;margin-bottom:8px;">😢</div><div style="color:#D4443A;">生成失败了</div><div style="color:#888;font-size:12px;margin-top:4px;">请点击按钮重试</div>';
+        }
+        if (btn) { btn.disabled = false; btn.textContent = '🔄 重新领取'; }
+        showToast('生成失败，请重试');
+      }
+    }
+
+    // 轮询图片生成任务（异步API）
+    async function pollImageTask(taskId, btn) {
+      const maxAttempts = 15; // 最多15次
+      const interval = 2000;  // 每次间隔2秒
+      
+      for (let i = 0; i < maxAttempts; i++) {
+        if (btn) btn.textContent = `⏳ 生成中...${i+1}/${maxAttempts}`;
+        
+        await new Promise(r => setTimeout(r, interval));
+        
+        try {
+          const resp = await fetch(`https://api.minimaxi.com/v1/image_generation/retrieve?task_id=${taskId}`, {
+            headers: { 'Authorization': `Bearer ${MINIMAX_API_KEY}` }
+          });
+          const result = await resp.json();
+          console.log(`轮询 ${i+1}:`, JSON.stringify(result));
+          
+          // 检查是否完成
+          const status = result?.data?.status;
+          if (status === 'success' || status === 'completed') {
+            // 官方返回：image_urls（复数）
+            return result?.data?.image_urls?.[0] || result?.data?.image_url?.[0];
+          }
+          if (status === 'failed') {
+            throw new Error('图片生成任务失败');
+          }
+        } catch (e) {
+          console.error('轮询出错:', e);
+        }
+      }
+      return null; // 超时
+    }
+
+    // AI合影核心逻辑（纯文生图模式）
+    async function generatePhotoCore(previewId, placeholderId, btnId, inputId) {
+      const btn = document.getElementById(btnId);
+      if (btn) { btn.disabled = true; btn.textContent = '⏳ AI生成中...'; }
+      const top1Pet = window.top3Results?.[0] || { name: '猫', emoji: '🐱' };
+
+      // 构建精准提示词（真实可爱风格）
+      const petPrompts = {
+        cat: `An adorable fluffy ${top1Pet.name || 'cat'} with big expressive eyes, sitting on a soft plush cushion, warm golden hour sunlight, photorealistic, incredibly cute expression, fluffy fur texture, shallow depth of field, professional pet photography, high quality`,
+        dog: `An adorable ${top1Pet.name || 'dog'} with puppy eyes and a happy expression, sitting in a cozy spot, warm natural lighting, photorealistic, incredibly cute and huggable, soft fur texture, professional pet photography`,
+        bird: `A beautiful colorful ${top1Pet.name || 'parrot'} with vibrant feathers, perched on a natural branch, warm soft lighting, photorealistic, cute and friendly appearance, detailed feather texture`,
+        small: `A tiny adorable ${top1Pet.name || 'hamster'} with big round eyes, sitting on soft bedding, warm cozy lighting, photorealistic, incredibly cute round body, soft fur detail`,
+        reptile: `A cute ${top1Pet.name || 'gecko'} with beautiful pattern, resting on natural rocks, warm soft lighting, photorealistic, friendly appearance, detailed scales`,
+        fish: `A beautiful ${top1Pet.name || 'goldfish'} with flowing fins, swimming in crystal clear water, soft underwater lighting, photorealistic, elegant and graceful, dreamy aquarium atmosphere`
+      };
+      const prompt = petPrompts[top1Pet.type] || petPrompts.cat;
+
+      try {
+        // 纯文生图API调用
+        const response = await fetch('https://api.minimaxi.com/v1/image_generation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${MINIMAX_API_KEY}` },
+          body: JSON.stringify({
+            model: 'image-01',
+            prompt: prompt,
+            aspect_ratio: '1:1',
+            response_format: 'url',
+            n: 1
+          })
+        });
+        const data = await response.json();
+        console.log('Image API Response:', JSON.stringify(data, null, 2));
+
+        let imgUrl = null;
+        
+        // 检查是否是同步返回（有直接图片URL）
+        // 官方返回格式：data.data.image_urls = ["url1", "url2", ...]
+        if (data?.data?.image_urls?.[0]) {
+          imgUrl = data.data.image_urls[0];
+        } else if (data?.data?.image_url?.[0]) {
+          imgUrl = data.data.image_url[0];
+        }
+        // 检查是否有 task_id（异步任务）
+        else if (data?.data?.task_id || data?.task_id) {
+          const taskId = data.data?.task_id || data.task_id;
+          console.log('异步任务，task_id:', taskId);
+          
+          // 轮询查询任务状态（最多30秒）
+          imgUrl = await pollImageTask(taskId, btn);
+        }
+        
+        // 如果有图片URL，显示结果
+        if (imgUrl) {
+          const preview = document.getElementById(previewId);
+          if (preview) { preview.src = imgUrl; preview.style.display = 'block'; }
+          const ph = document.getElementById(placeholderId);
+          if (ph) ph.style.display = 'none';
+          if (btn) { btn.textContent = '✅ 再次生成'; btn.disabled = false; }
+          // 如果是 v2 版本，显示结果区
+          if (previewId === 'uploadedPreview2') {
+            const resultEl = document.getElementById('photoResult2');
+            if (resultEl) resultEl.style.display = 'block';
+          }
+          showToast('🎉 AI合影生成成功！');
+        } else {
+          // API 返回了但没有图片
+          const errDetail = JSON.stringify(data).substring(0, 300);
+          throw new Error(`图片生成失败，API返回:\n${errDetail}`);
+        }
+      } catch (error) {
+        console.error('生成合照失败:', error);
+        if (btn) { btn.textContent = '⚠️ 生成失败，点击重试'; btn.disabled = false; }
+        showToast('生成失败：' + (error.message || '请检查网络'));
+      }
+    }
+
+    // 保存证书
+    function saveCertificate() {
+      showToast('长按证书图片保存~');
+    }
+
+    // 获取详细报告模板（备用）
+    function getDetailedReportTemplate() {
+      return {
+        personality: '你是一个注重生活品质、渴望陪伴的人...',
+        whyMatch: '根据你的回答，你的生活方式非常适合养一只宠物...',
+        careGuide: {
+          feeding: '每天定时喂食，选择优质宠粮...',
+          daily: '每天陪伴，定期清洁...',
+          health: '注意疫苗接种，定期体检...',
+          training: '从基础指令开始训练...',
+          environment: '保持环境干净，温度适宜...'
+        },
+        costBudget: {
+          initial: '宠粮：300元 | 窝/笼：200元 | 用品：200元 | 疫苗：300元',
+          monthly: '约400-800元'
+        },
+        warnings: ['不要给宠物吃人类食物', '定期驱虫很重要', '别忽视宠物的情绪'],
+        tips: ['养宠物需要耐心', '多了解宠物行为', '给它足够的运动', '保持卫生', '及时就医'],
+        timeline: '第1天：让它适应新环境 | 第2-3天：建立信任 | 第4-5天：开始训练 | 第6-7天：形成习惯'
+      };
+    }
+
+    // 获取默认完整报告
+    function getDefaultFullReport() {
+      return {
+        ...getDefaultReport(),
+        photoPrompt: 'A cute pet with a happy person',
+        certificateName: '萌宠'
+      };
+    }
+
+    // Toast提示
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
